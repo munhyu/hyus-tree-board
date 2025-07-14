@@ -1,0 +1,43 @@
+import { BoardListItem } from "types/interface";
+
+//  5개 정도
+const top3BoardListMock: BoardListItem[] = [
+  {
+    boardNumber: 1,
+    title: "첫 번째 게시물 제목",
+    content: "첫 번째 게시물 내용입니다.",
+    boardTitleImage: null,
+    favoriteCount: 10,
+    commentCount: 5,
+    viewCount: 100,
+    writeDatetime: "2025.11.12.",
+    writerNickname: "작성자1",
+    writerProfileImage: null,
+  },
+  {
+    boardNumber: 2,
+    title: "두 번째 게시물 제목",
+    content: "두 번째 게시물 내용입니다.",
+    boardTitleImage: "https://picsum.photos/id/238/200/300",
+    favoriteCount: 20,
+    commentCount: 10,
+    viewCount: 200,
+    writeDatetime: "2025.11.13.",
+    writerNickname: "작성자2",
+    writerProfileImage: null,
+  },
+  {
+    boardNumber: 3,
+    title: "게시물 제목",
+    content: "게시물 내용입니다.",
+    boardTitleImage: "https://picsum.photos/id/239/200/300",
+    favoriteCount: 20,
+    commentCount: 10,
+    viewCount: 200,
+    writeDatetime: "2025.11.13.",
+    writerNickname: "작성자2",
+    writerProfileImage: null,
+  },
+];
+
+export default top3BoardListMock;

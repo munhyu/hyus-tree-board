@@ -1,0 +1,86 @@
+#footer {
+  padding: 40px 0 50px 0;
+  background-color: rgba(55, 55, 55, 1);
+
+  display: flex;
+  justify-content: center;
+}
+
+.footer-container {
+  width: 1200px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo-text {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+  font-family: "GimhaeGaya";
+
+  color: rgba(255, 255, 255, 1);
+}
+
+.footer-link-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-email-link {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.32px;
+  color: rgba(255, 255, 255, 1);
+
+  font-family: "Inter";
+}
+
+.footer-copyright {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+
+  font-family: "Inter";
+}
+
+/* <div id="footer" className="footer">
+      <div className="footer-container">
+        <div className="footer-top">
+          <div className="footer-logo-box">
+            <div className="icon-box">
+              <div className="icon logo-light-icon"></div>
+            </div>
+            <div className="footer-logo-text"></div>
+          </div>
+          <div className="footer-link-box">
+            <div className="footer-email-link"></div>
+            <div className="icon-button">
+              <div className="icon insta-icon"></div>
+            </div>
+            <div className="icon-button">
+              <div className="icon naver-blog-icon"></div>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <div className="footer-copyright"></div>
+        </div>
+      </div>
+    </div> */
