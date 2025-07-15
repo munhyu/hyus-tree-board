@@ -9,7 +9,7 @@ public interface ResponseCode {
   String VALIDATION_FAILED = "VF";
   String DUPLICATE_EMAIL = "DE";
   String DUPLICATE_NICKNAME = "DN";
-  String DUPLICATE_TEL_NUMBER = "DT";
+  // String DUPLICATE_TEL_NUMBER = "DT";
   String NOT_EXISTED_USER = "NU";
   String NOT_EXISTED_BOARD = "NB";
 
