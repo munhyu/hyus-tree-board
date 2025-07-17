@@ -18,7 +18,7 @@ public class SignInResponseDto extends ResponseDto {
   public SignInResponseDto(String token) {
     super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
     this.token = token;
-    this.expirationTime = 3600;
+    this.expirationTime = 18000;
   }
 
   public static ResponseEntity<SignInResponseDto> success(String token) {
