@@ -196,22 +196,12 @@ export default function Header() {
   //                 render: 헤더 레이아웃 렌더링          //
   return (
     <div id="header">
-      <div>
-        <div>pathname={pathname}</div>
-        <div>isAuthPage={isAuthPage && "1"}</div>
-        <div>isMainPage={isMainPage && "1"}</div>
-        <div>isSearchPage={isSearchPage && "1"}</div>
-        <div>isUserPage={isUserPage && "1"}</div>
-        <div>isBoardDetailPage={isBoardDetailPage && "1"}</div>
-        <div>isBoardWritePage={isBoardWritePage && "1"}</div>
-        <div>isBoardUpdatePage={isBoardUpdatePage && "1"}</div>
-      </div>
       <div className="header-container">
         <div className="header-left-box" onClick={onLogoClickHandler}>
           <div className="icon-box">
             <div className="icon logo-dark-icon"></div>
           </div>
-          <div className="header-logo">{`Hyu's Board`}</div>
+          <div className="header-logo">{`Hyu's Tree`}</div>
         </div>
         <div className="header-right-box">
           {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && (

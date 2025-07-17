@@ -62,15 +62,3 @@
   line-height: 140%;
   color: rgba(0, 0, 0, 1);
 }
-
-/* <div id="header">
-      <div className="header-container">
-        <div className="header-left-box">
-          <div className="icon-box">
-            <div className="icon"></div>
-          </div>
-          <div className="header-logo">{`Hyu's Board`}</div>
-        </div>
-        <div className="header-right-box"></div>
-      </div>
-    </div> */

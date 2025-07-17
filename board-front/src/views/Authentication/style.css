@@ -1,0 +1,204 @@
+#auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 100px 0px 150px;
+  min-width: 1440px;
+  min-height: 960px;
+  height: calc(100vh - 68px - 100px - 150px);
+
+  /* background-image: url("assets/image/auth-background.png"); */
+  background-image: url("assets/image/background-creative-space.jpg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+.auth-container {
+  width: 1200px;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  column-gap: 78px;
+}
+
+.auth-jumbotron-box {
+  grid-column: 1 / 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+}
+
+.auth-jumbotron-contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.auth-logo-icon {
+  width: 50px;
+  height: 50px;
+
+  background-image: url("assets/image/auth-logo.png");
+  background-position: 50%;
+  background-size: 100%;
+}
+
+.auth-jumbotron-text-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-jumbotron-text {
+  font-family: "GimhaeGaya";
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -1.2px;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+}
+
+.auth-card {
+  grid-column: 2 / 3;
+
+  height: 80%;
+
+  margin-top: 50px;
+
+  border-radius: 10px;
+  padding: 50px 50px 30px;
+
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 47px 0px rgba(0, 0, 0, 0.25);
+}
+
+.auth-card-box {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.auth-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.auth-card-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 1);
+}
+
+.auth-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.auth-sign-in-error-box {
+  margin-bottom: -4px;
+}
+
+.auth-sign-in-error-message {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 140%;
+  color: rgba(255, 0, 0, 0.7);
+
+  white-space: pre-wrap;
+}
+
+.auth-description-box {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.auth-description-link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+
+  margin-left: 6px;
+}
+
+/* 
+      <div className="auth-card">
+        <div className="auth-card-box">
+          <div className="auth-card-top">
+            <div className="auth-card-title-box">
+              <div className="auth-card-title">{"로그인"}</div>
+            </div>
+            <InputBox
+              ref={emailRef}
+              label="이메일"
+              type="text"
+              placeholder="이메일을 입력해주세요."
+              error={error}
+              value={email}
+              setValue={setEmail}
+              onKeyDown={onEmailKeyDownHandler}
+            />
+            <InputBox
+              ref={passwordRef}
+              label="비밀번호"
+              type={passwordType}
+              placeholder="비밀번호를 입력해주세요."
+              error={error}
+              value={password}
+              setValue={setPassword}
+              icon={passwordButtonIcon}
+              onButtonClick={onPasswordButtonClickHandler}
+              onKeyDown={onPasswordKeyDownHandler}
+            />
+          </div>
+          <div className="auth-card-bottom">
+            <div className="auth-sign-in-error-box">
+              <div className="auth-sign-in-error-message">
+                {
+                  "이메일 또는 비밀번호가 잘못 되었습니다.\n이메일과 비밀번호를 정확히 입력해주세요."
+                }
+              </div>
+            </div>
+            <div
+              className="black-large-full-button"
+              onClick={onSignInButtonClickHandler}
+            >
+              {"로그인"}
+            </div>
+            <div className="auth-description-box">
+              <div className="auth-description">
+                {"계정이 없으신가요?"}
+                <span
+                  className="auth-description-link"
+                  onClick={onSignUpLinkClickHandler}
+                >
+                  {"회원가입"}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */
