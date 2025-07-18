@@ -25,7 +25,7 @@ export default function Header() {
   //               state: 로그인 유저 상태               //
   const { loginUser, setLoginUser, resetLoginUser } = useLoginUserStore();
   //                state: cookie 상태                   //
-  const [cookies, setCookies] = useCookies();
+  const [cookies, setCookie] = useCookies();
 
   //               state: path 상태                   //
   const { pathname } = useLocation();
@@ -142,6 +142,7 @@ export default function Header() {
     // event handler: 로그아웃 버튼 클릭 이벤트 처리 함수 //
     const onLogoutButtonClickHandler = () => {
       resetLoginUser();
+      setCookie("accessToken", "", { path: MAIN_PATH(), expires: new Date() });
       navigate(MAIN_PATH());
     };
     // event handler: 로그인 버튼 클릭 이벤트 처리 함수 //

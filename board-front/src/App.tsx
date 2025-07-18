@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Main from "views/Main";
@@ -7,7 +7,7 @@ import Search from "views/Search";
 import BoardDetail from "views/Board/Detail";
 import BoardUpdate from "views/Board/Update";
 import BoardWrite from "views/Board/Write";
-import User from "views/User";
+import UserView from "views/User";
 import Container from "layouts/Container";
 import {
   MAIN_PATH,
@@ -19,6 +19,12 @@ import {
   BOARD_DETAIL_PATH,
   BOARD_UPDATE_PATH,
 } from "constant";
+import { useCookies } from "react-cookie";
+import { useLoginUserStore } from "stores";
+import { getSignInUserRequest } from "apis";
+import { GetSignInUserResponseDto } from "apis/response/user";
+import { ResponseDto } from "apis/response";
+import { User } from "types/interface";
 
 // import {
 //   latestBoardListMock,
@@ -30,11 +36,40 @@ import {
 // import Top3Item from "components/Top3Item";
 // import CommentItem from "components/CommentItem";
 // import FavoriteItem from "components/FavoriteItem";
-// import InputBox from "components/InputBox";
-// import Footer from "layouts/Footer";
 
 //                  components: Application 컴포넌트              //
 function App() {
+  //          state: 로그인 유저 전역 상태          //
+  const { setLoginUser, resetLoginUser } = useLoginUserStore();
+
+  //          state: cookie 상태          //
+  const [cookies, setCookie] = useCookies();
+
+  //          function: get sign in user response 처리 함수          //
+  const getSignUserResponse = (
+    responseBody: GetSignInUserResponseDto | ResponseDto | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "AF" || code === "NU" || code === "DBE") {
+      resetLoginUser();
+      return;
+    }
+    const loginUser: User = {
+      ...(responseBody as GetSignInUserResponseDto),
+    };
+    setLoginUser(loginUser);
+  };
+
+  //          effect: accessToken cookie 값이 변경될 때 마다 실행할 함수          //
+  useEffect(() => {
+    if (!cookies.accessToken) {
+      resetLoginUser();
+      return;
+    }
+    getSignInUserRequest(cookies.accessToken).then(getSignUserResponse);
+  }, [cookies.accessToken]);
+
   //                  render: Application 컴포넌트 렌더링          //
   // description: 메인 화면 : '/' - Main //
   // description: 로그인 + 회원가입 화면 : '/auth' - Authentication //
@@ -51,7 +86,7 @@ function App() {
           <Route path={MAIN_PATH()} element={<Main />}></Route>
           <Route path={AUTH_PATH()} element={<Authentication />}></Route>
           <Route path={SEARCH_PATH(":searchWord")} element={<Search />}></Route>
-          <Route path={USER_PATH(":userEmail")} element={<User />}></Route>
+          <Route path={USER_PATH(":userEmail")} element={<UserView />}></Route>
 
           <Route path={BOARD_PATH()}>
             <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />}></Route>
@@ -105,12 +140,3 @@ export default App;
 //     <FavoriteItem favoriteListItem={favoriteListItem} />
 //   ))}
 // </div> */}
-// {/* <InputBox
-//   label="email"
-//   type="text"
-//   placeholder="이메일 주소를 입력해주세요"
-//   value={value}
-//   error={true}
-//   setValue={setValue}
-//   message="aaaa"
-// /> */}
