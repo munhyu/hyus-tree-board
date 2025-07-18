@@ -53,23 +53,6 @@ public class WebSecurityConfig {
             .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    // 스프링부트2버전 설정
-    // httpSecurity
-    // .cors().and()
-    // .csrf().disable()
-    // .httpBasic().disable()
-    // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-    // .authorizeHttpRequests()
-    // .antMatchers("/", "/api/v1/auth/**", "/api/v1/search/**",
-    // "/file/**").permitAll()
-    // .antMatchers(HttpMethod.GET, "/api/v1/board/**",
-    // "/api/v1/user/*").permitAll()
-    // .anyRequest().authenticated().and()
-    // .exceptionHandling()
-    // .authenticationEntryPoint(new FailedAuthenticationEntryPoint());
-    // httpSecurity.addFilterBefore(jwtAuthenticationFilter,
-    // UsernamePasswordAuthenticationFilter.class);
-
     return httpSecurity.build();
   }
 
