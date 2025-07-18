@@ -18,7 +18,7 @@ interface Props {
   icon?: "eye-light-off-icon" | "eye-light-on-icon" | "expand-right-light-icon";
   onButtonClick?: () => void;
 
-  message?: string;
+  errorMessage?: string;
 
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
@@ -26,7 +26,7 @@ interface Props {
 //                   component: Input Box 컴포넌트                //
 const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
   //                  state: props                //
-  const { label, type, error, placeholder, value, icon, message } = props;
+  const { label, type, error, placeholder, value, icon, errorMessage } = props;
   const { onChange, onButtonClick, onKeyDown } = props;
 
   //                 event handler: input 키보드 이벤트 처리 함수         //
@@ -57,8 +57,8 @@ const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
           </div>
         )}
       </div>
-      {message !== undefined && (
-        <div className="inputbox-message">{message}</div>
+      {errorMessage !== undefined && (
+        <div className="inputbox-message">{errorMessage}</div>
       )}
     </div>
   );

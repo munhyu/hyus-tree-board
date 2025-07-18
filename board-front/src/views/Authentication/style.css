@@ -8,7 +8,6 @@
   min-height: 960px;
   height: calc(100vh - 68px - 100px - 150px);
 
-  /* background-image: url("assets/image/auth-background.png"); */
   background-image: url("assets/image/background-creative-space.jpg");
   background-position: 50%;
   background-repeat: no-repeat;
@@ -144,61 +143,37 @@
   margin-left: 6px;
 }
 
-/* 
-      <div className="auth-card">
-        <div className="auth-card-box">
-          <div className="auth-card-top">
-            <div className="auth-card-title-box">
-              <div className="auth-card-title">{"로그인"}</div>
-            </div>
-            <InputBox
-              ref={emailRef}
-              label="이메일"
-              type="text"
-              placeholder="이메일을 입력해주세요."
-              error={error}
-              value={email}
-              setValue={setEmail}
-              onKeyDown={onEmailKeyDownHandler}
-            />
-            <InputBox
-              ref={passwordRef}
-              label="비밀번호"
-              type={passwordType}
-              placeholder="비밀번호를 입력해주세요."
-              error={error}
-              value={password}
-              setValue={setPassword}
-              icon={passwordButtonIcon}
-              onButtonClick={onPasswordButtonClickHandler}
-              onKeyDown={onPasswordKeyDownHandler}
-            />
-          </div>
-          <div className="auth-card-bottom">
-            <div className="auth-sign-in-error-box">
-              <div className="auth-sign-in-error-message">
-                {
-                  "이메일 또는 비밀번호가 잘못 되었습니다.\n이메일과 비밀번호를 정확히 입력해주세요."
-                }
-              </div>
-            </div>
-            <div
-              className="black-large-full-button"
-              onClick={onSignInButtonClickHandler}
-            >
-              {"로그인"}
-            </div>
-            <div className="auth-description-box">
-              <div className="auth-description">
-                {"계정이 없으신가요?"}
-                <span
-                  className="auth-description-link"
-                  onClick={onSignUpLinkClickHandler}
-                >
-                  {"회원가입"}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */
+.auth-consent-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-check-box {
+  width: 24px;
+  height: 24px;
+
+  cursor: pointer;
+}
+
+.auth-consent-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 1);
+}
+
+.auth-consent-title-error {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 140%;
+  color: rgba(255, 0, 0, 0.7);
+}
+
+.auth-consent-link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 140%;
+  color: rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
