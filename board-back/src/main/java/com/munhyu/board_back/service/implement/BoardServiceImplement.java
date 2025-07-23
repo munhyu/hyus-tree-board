@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
 import com.munhyu.board_back.entity.BoardEntity;
 import com.munhyu.board_back.entity.ImageEntity;
 import com.munhyu.board_back.repository.BoardRepository;
 import com.munhyu.board_back.repository.ImageRepository;
 import com.munhyu.board_back.repository.UserRepository;
+import com.munhyu.board_back.repository.resultSet.GetBoardResultSet;
 import com.munhyu.board_back.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,34 @@ public class BoardServiceImplement implements BoardService {
   private final UserRepository userRepository;
   private final BoardRepository boardRepository;
   private final ImageRepository imageRepository;
+
+  @Override
+  public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
+
+    GetBoardResultSet resultSet = null;
+    List<ImageEntity> imageEntities = null;
+
+    try {
+
+      resultSet = boardRepository.getBoard(boardNumber);
+
+      if (resultSet == null) {
+        return GetBoardResponseDto.noExistBoard();
+      }
+
+      imageEntities = imageRepository.findByBoardNumber(boardNumber);
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+      boardEntity.increaseViewCount();
+      boardRepository.save(boardEntity);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetBoardResponseDto.success(resultSet, imageEntities);
+  }
 
   @Override
   public ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email) {
