@@ -92,3 +92,13 @@
 
   cursor: pointer;
 }
+
+.board-write-image-upload-box {
+  width: 100%;
+  position: relative;
+}
+.board-write-image-upload-box .icon-button {
+  top: 0;
+  right: 20px;
+  position: absolute;
+}

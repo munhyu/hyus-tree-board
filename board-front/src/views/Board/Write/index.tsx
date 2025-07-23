@@ -110,14 +110,7 @@ export default function BoardWrite() {
             />
           </div>
           <div className="divider"></div>
-          <div className="board-write-content-box">
-            <textarea
-              ref={contentRef}
-              className="board-write-content-textarea"
-              placeholder="내용"
-              value={content}
-              onChange={onContentChangeHandler}
-            />
+          <div className="board-write-image-upload-box">
             <div
               className="icon-button"
               onClick={onImageUploadButtonClickHandler}
@@ -144,6 +137,15 @@ export default function BoardWrite() {
                 </div>
               </div>
             ))}
+          </div>
+          <div className="board-write-content-box">
+            <textarea
+              ref={contentRef}
+              className="board-write-content-textarea"
+              placeholder="내용"
+              value={content}
+              onChange={onContentChangeHandler}
+            />
           </div>
         </div>
       </div>
