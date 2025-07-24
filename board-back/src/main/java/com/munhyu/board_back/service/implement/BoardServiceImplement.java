@@ -7,19 +7,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
+import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
+import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.PostCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.munhyu.board_back.entity.BoardEntity;
+import com.munhyu.board_back.entity.CommentEntity;
 import com.munhyu.board_back.entity.FavoriteEntity;
 import com.munhyu.board_back.entity.ImageEntity;
 import com.munhyu.board_back.repository.BoardRepository;
+import com.munhyu.board_back.repository.CommentRepository;
 import com.munhyu.board_back.repository.FavoriteRepository;
 import com.munhyu.board_back.repository.ImageRepository;
 import com.munhyu.board_back.repository.UserRepository;
 import com.munhyu.board_back.repository.resultSet.GetBoardResultSet;
+import com.munhyu.board_back.repository.resultSet.GetCommentListResultSet;
 import com.munhyu.board_back.repository.resultSet.GetFavoriteListResultSet;
 import com.munhyu.board_back.service.BoardService;
 
@@ -32,6 +39,7 @@ public class BoardServiceImplement implements BoardService {
   private final UserRepository userRepository;
   private final BoardRepository boardRepository;
   private final ImageRepository imageRepository;
+  private final CommentRepository commentRepository;
   private final FavoriteRepository favoriteRepository;
 
   @Override
@@ -86,6 +94,29 @@ public class BoardServiceImplement implements BoardService {
   }
 
   @Override
+  public ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber) {
+
+    List<GetCommentListResultSet> resultSets = new ArrayList<>();
+
+    try {
+
+      boolean existedBoard = boardRepository.existsByBoardNumber(boardNumber);
+
+      if (!existedBoard) {
+        return ResponseDto.notExistBoard();
+      }
+
+      resultSets = commentRepository.getCommentList(boardNumber);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetCommentListResponseDto.success(resultSets);
+  }
+
+  @Override
   public ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email) {
 
     try {
@@ -118,6 +149,36 @@ public class BoardServiceImplement implements BoardService {
     }
 
     return PostBoardResponseDto.success();
+  }
+
+  @Override
+  public ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, Integer boardNumber,
+      String email) {
+
+    try {
+
+      boolean existedEmail = userRepository.existsByEmail(email);
+      if (!existedEmail) {
+        return PostCommentResponseDto.notExistUser();
+      }
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+      if (boardEntity == null) {
+        return PostCommentResponseDto.notExistBoard();
+      }
+
+      CommentEntity commentEntity = new CommentEntity(dto, boardNumber, email);
+      commentRepository.save(commentEntity);
+
+      boardEntity.increaseCommentCount();
+      boardRepository.save(boardEntity);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return PostCommentResponseDto.success();
   }
 
   @Override
@@ -155,6 +216,44 @@ public class BoardServiceImplement implements BoardService {
     }
 
     return PutFavoriteResponseDto.success();
+
+  }
+
+  @Override
+  public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer commentNumber, String email) {
+
+    try {
+
+      boolean existedEmail = userRepository.existsByEmail(email);
+      if (!existedEmail) {
+        return DeleteCommentResponseDto.notExistUser();
+      }
+
+      CommentEntity commentEntity = commentRepository.findByCommentNumber(commentNumber);
+      if (commentEntity == null) {
+        return DeleteCommentResponseDto.notExistComment();
+      }
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(commentEntity.getBoardNumber());
+      if (boardEntity == null) {
+        return DeleteCommentResponseDto.notExistBoard();
+      }
+
+      if (!commentEntity.getUserEmail().equals(email)) {
+        return DeleteCommentResponseDto.noPermission();
+      }
+
+      commentRepository.delete(commentEntity);
+
+      boardEntity.decreaseCommentCount();
+      boardRepository.save(boardEntity);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return DeleteCommentResponseDto.success();
 
   }
 
