@@ -3,7 +3,6 @@ package com.munhyu.board_back.dto.response.board;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import com.munhyu.board_back.common.ResponseCode;
@@ -28,11 +27,6 @@ public class GetFavoriteListResponseDto extends ResponseDto {
     GetFavoriteListResponseDto result = new GetFavoriteListResponseDto(resultSets);
     return ResponseEntity.status(HttpStatus.OK)
         .body(result);
-  }
-
-  public static ResponseEntity<ResponseDto> notExistBoard() {
-    ResponseDto result = new ResponseDto(ResponseCode.NOT_EXISTED_BOARD, ResponseMessage.NOT_EXISTED_BOARD);
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
   }
 
 }
