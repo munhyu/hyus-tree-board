@@ -13,6 +13,7 @@ import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
@@ -57,10 +58,6 @@ public class BoardServiceImplement implements BoardService {
       }
 
       imageEntities = imageRepository.findByBoardNumber(boardNumber);
-
-      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
-      boardEntity.increaseViewCount();
-      boardRepository.save(boardEntity);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -255,6 +252,26 @@ public class BoardServiceImplement implements BoardService {
 
     return DeleteCommentResponseDto.success();
 
+  }
+
+  @Override
+  public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber) {
+
+    try {
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+      if (boardEntity == null) {
+        return IncreaseViewCountResponseDto.notExistBoard();
+      }
+      boardEntity.increaseViewCount();
+      boardRepository.save(boardEntity);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return IncreaseViewCountResponseDto.success();
   }
 
 }

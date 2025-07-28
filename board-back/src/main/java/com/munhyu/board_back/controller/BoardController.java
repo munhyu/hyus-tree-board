@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
@@ -54,6 +56,16 @@ public class BoardController {
       @PathVariable("boardNumber") Integer boardNumber) {
 
     ResponseEntity<? super GetCommentListResponseDto> response = boardService.getCommentList(boardNumber);
+
+    return response;
+  }
+
+  // patch는 401에러가 발생할 수 있어 getMapping으로 변경
+  @GetMapping("/{boardNumber}/increase-view-count")
+  public ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(
+      @PathVariable("boardNumber") Integer boardNumber) {
+
+    ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
 
     return response;
   }

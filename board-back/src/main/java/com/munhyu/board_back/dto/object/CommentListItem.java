@@ -14,12 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentListItem {
 
+  private int commentNumber;
   private String nickname;
   private String profileImage;
   private String writeDatetime;
   private String content;
 
   public CommentListItem(GetCommentListResultSet resultSet) {
+    this.commentNumber = resultSet.getCommentNumber();
     this.nickname = resultSet.getNickname();
     this.profileImage = resultSet.getProfileImage();
     this.writeDatetime = resultSet.getWriteDatetime();

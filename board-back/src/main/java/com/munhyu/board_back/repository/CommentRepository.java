@@ -14,7 +14,8 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
 
   CommentEntity findByCommentNumber(Integer commentNumber);
 
-  @Query(value = "SELECT u.nickname AS nickname, "
+  @Query(value = "SELECT c.comment_number AS commentNumber, "
+      + "u.nickname AS nickname, "
       + "u.profile_image AS profileImage, "
       + "c.write_datetime AS writeDatetime, "
       + "c.content AS content "
