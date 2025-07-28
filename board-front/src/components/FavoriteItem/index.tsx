@@ -29,8 +29,8 @@ export default function FavoriteItem({ favoriteListItem }: Props) {
             })`,
           }}
         ></div>
-        <div className="favorite-list-item-nickname">{nickname}</div>
       </div>
+      <div className="favorite-list-item-nickname">{nickname}</div>
     </div>
   );
 }

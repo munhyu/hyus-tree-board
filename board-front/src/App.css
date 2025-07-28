@@ -3,6 +3,10 @@
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.emphasis {
+  font-weight: bolder;
+}
+
 .black-button {
   width: 95px;
   height: 30px;
@@ -189,19 +193,19 @@
   background-image: url("assets/image/edit-light.png");
 }
 
-.expand-down-light-icon {
+.down-light-icon {
   background-image: url("assets/image/expand-down-light.png");
 }
 
-.expand-left-icon {
+.left-icon {
   background-image: url("assets/image/expand-left.png");
 }
 
-.expand-right-icon {
+.right-icon {
   background-image: url("assets/image/expand-right.png");
 }
 
-.expand-up-light-icon {
+.up-light-icon {
   background-image: url("assets/image/expand-up-light.png");
 }
 

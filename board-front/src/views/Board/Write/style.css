@@ -72,16 +72,17 @@
 }
 
 .board-write-image-box {
-  width: 100%;
+  width: fit-content;
   position: relative;
 }
 
 .board-write-image {
-  /* width: 100%; */
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 80vh;
+
+  object-fit: scale-down;
 }
 
 .image-close {
