@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
+import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
@@ -31,5 +32,7 @@ public interface BoardService {
   ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
 
   ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer commentNumber, String email);
+
+  ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 
 }

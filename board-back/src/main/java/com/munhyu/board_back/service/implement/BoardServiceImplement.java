@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
+import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
@@ -272,6 +273,40 @@ public class BoardServiceImplement implements BoardService {
     }
 
     return IncreaseViewCountResponseDto.success();
+  }
+
+  @Override
+  public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email) {
+
+    try {
+
+      boolean existedEmail = userRepository.existsByEmail(email);
+      if (!existedEmail) {
+        return DeleteBoardResponseDto.notExistUser();
+      }
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+      if (boardEntity == null) {
+        return DeleteBoardResponseDto.notExistBoard();
+      }
+
+      boolean isWriter = boardEntity.getWriterEmail().equals(email);
+      if (!isWriter) {
+        return DeleteBoardResponseDto.noPermission();
+      }
+
+      imageRepository.deleteByBoardNumber(boardNumber);
+      favoriteRepository.deleteByBoardNumber(boardNumber);
+      commentRepository.deleteByBoardNumber(boardNumber);
+      boardRepository.delete(boardEntity);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return DeleteBoardResponseDto.success();
+
   }
 
 }
