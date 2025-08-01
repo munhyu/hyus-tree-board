@@ -48,6 +48,9 @@ export default function CommentItem({ commentListItem }: Props) {
     if (code === "NB") alert("존재하지 않는 게시물입니다.");
     if (code === "DBE") alert("데이터 베이스 오류입니다.");
     if (code === "NC") alert("존재하지 않는 댓글입니다.");
+    if (code === "AF") alert("인증에 실패했습니다.");
+    if (code === "NP") alert("권한이 없습니다.");
+    if (code === "VF") alert("잘못된 접근입니다.");
     if (code !== "SU") {
       alert(commentNumber);
       alert(code);

@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.css";
 import FavoriteItem from "components/FavoriteItem";
-import { boardMock, commentListMock, favoriteListMock } from "mocks";
 import { Board, CommentListItem, FavoriteListItem } from "types/interface";
 import CommentItem from "components/CommentItem";
 import Pagination from "components/Pagination";
@@ -11,6 +10,7 @@ import { useLoginUserStore } from "stores";
 import { useNavigate, useParams } from "react-router-dom";
 import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from "constant";
 import {
+  deleteBoardRequest,
   getBoardRequest,
   getCommentListRequest,
   getFavoriteListRequest,
@@ -19,6 +19,7 @@ import {
   putFavoriteRequest,
 } from "apis";
 import {
+  DeleteBoardResponseDto,
   GetBoardResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
@@ -92,6 +93,23 @@ export default function BoardDetail() {
       setIsWriter(isWriter);
     };
 
+    //          function: delete board response 처리 함수          //
+    const deleteBoardResponse = (
+      responseBody: DeleteBoardResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "VF") alert("잘못된 접근입니다.");
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "NU") alert("존재하지 않는 유저입니다.");
+      if (code === "AF") alert("인증에 실패했습니다.");
+      if (code === "NP") alert("권한이 없습니다.");
+      if (code === "DBE") alert("데이터 베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      navigate(MAIN_PATH());
+    };
+
     //          event handler: 닉네임 클릭 이벤트 처리 함수          //
     const onNicknameClickHandler = () => {
       if (!board) return;
@@ -105,14 +123,18 @@ export default function BoardDetail() {
     //          event handler: update 버튼 클릭 이벤트 처리 함수          //
     const onUpdateButtonClickHandler = () => {
       if (!board || !loginUser) return;
-      // if (loginUser.email !== board.writerEmail) return;
+      if (loginUser.email !== board.writerEmail) return;
+
       navigate(BOARD_PATH() + "/" + BOARD_UPDATE_PATH(board.boardNumber));
     };
     //          event handler: delete 버튼 클릭 이벤트 처리 함수          //
     const onDeleteButtonClickHandler = () => {
-      if (!board || !loginUser) return;
-      // if (loginUser.email !== board.writerEmail) return;
-      // TODO: 게시물 삭제 리퀘스트
+      if (!board || !loginUser || !boardNumber || !cookies.accessToken) return;
+      if (loginUser.email !== board.writerEmail) return;
+
+      deleteBoardRequest(boardNumber, cookies.accessToken).then(
+        deleteBoardResponse
+      );
       navigate(MAIN_PATH());
     };
 

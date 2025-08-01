@@ -5,6 +5,7 @@ import { ResponseDto } from "./response";
 import { GetSignInUserResponseDto } from "./response/user";
 import { PostBoardRequestDto, PostCommentRequestDto } from "./request/board";
 import {
+  DeleteBoardResponseDto,
   DeleteCommentResponseDto,
   GetBoardResponseDto,
   GetCommentListResponseDto,
@@ -93,6 +94,8 @@ const GET_COMMENT_LIST_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/comment-list`;
 const DELETE_COMMENT_URL = (commentNumber: number) =>
   `${API_DOMAIN}/board/comment/${commentNumber}`;
+const DELETE_BOARD_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}`;
 const PUT_FAVORITE_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/favorite`;
 
@@ -225,6 +228,24 @@ export const deleteCommentRequest = async (
     .delete(DELETE_COMMENT_URL(commentNumber), authorizationHeader(accessToken))
     .then((response) => {
       const responseBody: DeleteCommentResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+export const deleteBoardRequest = async (
+  boardNumber: number | string,
+  accessToken: string
+) => {
+  const result = await axios
+    .delete(DELETE_BOARD_URL(boardNumber), authorizationHeader(accessToken))
+    .then((response) => {
+      const responseBody: DeleteBoardResponseDto = response.data;
       return responseBody;
     })
     .catch((error) => {
