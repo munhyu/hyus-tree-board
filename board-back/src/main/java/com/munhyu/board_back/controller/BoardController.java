@@ -15,6 +15,7 @@ import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
@@ -27,6 +28,7 @@ import com.munhyu.board_back.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/board")
@@ -68,6 +70,13 @@ public class BoardController {
 
     ResponseEntity<? super IncreaseViewCountResponseDto> response = boardService.increaseViewCount(boardNumber);
 
+    return response;
+  }
+
+  @GetMapping("latest-list")
+  public ResponseEntity<? super GetBoardListResponseDto> getBoardList(
+      @RequestParam(value = "page", defaultValue = "1") int page) {
+    ResponseEntity<? super GetBoardListResponseDto> response = boardService.getLatestBoardList(page);
     return response;
   }
 

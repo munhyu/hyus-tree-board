@@ -3,6 +3,10 @@ package com.munhyu.board_back.service.implement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +15,7 @@ import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
@@ -19,9 +24,11 @@ import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.munhyu.board_back.entity.BoardEntity;
+import com.munhyu.board_back.entity.BoardListViewEntity;
 import com.munhyu.board_back.entity.CommentEntity;
 import com.munhyu.board_back.entity.FavoriteEntity;
 import com.munhyu.board_back.entity.ImageEntity;
+import com.munhyu.board_back.repository.BoardListViewRepository;
 import com.munhyu.board_back.repository.BoardRepository;
 import com.munhyu.board_back.repository.CommentRepository;
 import com.munhyu.board_back.repository.FavoriteRepository;
@@ -43,6 +50,7 @@ public class BoardServiceImplement implements BoardService {
   private final ImageRepository imageRepository;
   private final CommentRepository commentRepository;
   private final FavoriteRepository favoriteRepository;
+  private final BoardListViewRepository boardListViewRepository;
 
   @Override
   public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -112,6 +120,25 @@ public class BoardServiceImplement implements BoardService {
     }
 
     return GetCommentListResponseDto.success(resultSets);
+  }
+
+  @Override
+  public ResponseEntity<? super GetBoardListResponseDto> getLatestBoardList(int page) {
+
+    Page<BoardListViewEntity> boardPage = null;
+
+    try {
+
+      boardPage = boardListViewRepository
+          .findAll(PageRequest.of(page - 1, 10, Sort.by("writeDatetime").descending()));
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetBoardListResponseDto.success(boardPage);
+
   }
 
   @Override
