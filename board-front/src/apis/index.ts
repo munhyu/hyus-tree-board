@@ -7,6 +7,7 @@ import { PostBoardRequestDto, PostCommentRequestDto } from "./request/board";
 import {
   DeleteBoardResponseDto,
   DeleteCommentResponseDto,
+  GetBoardLatestListResponseDto,
   GetBoardResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
@@ -98,12 +99,29 @@ const DELETE_BOARD_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}`;
 const PUT_FAVORITE_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/favorite`;
+const GET_BOARD_LATEST_LIST_URL = (page: number) =>
+  `${API_DOMAIN}/board/latest-list?page=${page}`;
 
 export const getBoardRequest = async (boardNumber: number | string) => {
   const result = await axios
     .get(GET_BOARD_URL(boardNumber))
     .then((response) => {
       const responseBody: GetBoardResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+export const getBoardLatestListRequest = async (page: number) => {
+  const result = await axios
+    .get(GET_BOARD_LATEST_LIST_URL(page))
+    .then((response) => {
+      const responseBody: GetBoardLatestListResponseDto = response.data;
       return responseBody;
     })
     .catch((error) => {
