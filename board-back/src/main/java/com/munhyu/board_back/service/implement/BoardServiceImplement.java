@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.munhyu.board_back.dto.request.board.PatchBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
@@ -20,6 +21,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
+import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
@@ -38,6 +40,7 @@ import com.munhyu.board_back.repository.resultSet.GetBoardResultSet;
 import com.munhyu.board_back.repository.resultSet.GetCommentListResultSet;
 import com.munhyu.board_back.repository.resultSet.GetFavoriteListResultSet;
 import com.munhyu.board_back.service.BoardService;
+import com.munhyu.board_back.service.FileService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +54,7 @@ public class BoardServiceImplement implements BoardService {
   private final CommentRepository commentRepository;
   private final FavoriteRepository favoriteRepository;
   private final BoardListViewRepository boardListViewRepository;
+  private final FileService fileService;
 
   @Override
   public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -320,6 +324,11 @@ public class BoardServiceImplement implements BoardService {
       boolean isWriter = boardEntity.getWriterEmail().equals(email);
       if (!isWriter) {
         return DeleteBoardResponseDto.noPermission();
+      }
+
+      List<ImageEntity> imageEntities = imageRepository.findByBoardNumber(boardNumber);
+      for (ImageEntity imageEntity : imageEntities) {
+        fileService.deleteImage(imageEntity.getImage());
       }
 
       imageRepository.deleteByBoardNumber(boardNumber);

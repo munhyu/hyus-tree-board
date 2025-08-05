@@ -1,6 +1,9 @@
 package com.munhyu.board_back.service.implement;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -59,4 +62,23 @@ public class FileServiceImplement implements FileService {
     return resource;
   }
 
+  @Override
+  public boolean deleteImage(String fileName) {
+    try {
+      fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
+      Path fileToDelete = Paths.get(filePath, fileName);
+
+      if (Files.exists(fileToDelete) && !Files.isDirectory(fileToDelete)) {
+        Files.delete(fileToDelete);
+        System.out.println("File deleted successfully: " + fileName);
+        return true;
+      } else {
+        System.out.println("File not found or is a directory: " + fileName);
+        return false;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 }
