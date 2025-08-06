@@ -249,6 +249,52 @@ public class BoardServiceImplement implements BoardService {
   }
 
   @Override
+  public ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber,
+      String email) {
+
+    try {
+      boolean existedEmail = userRepository.existsByEmail(email);
+      if (!existedEmail) {
+        return PatchBoardResponseDto.notExistUser();
+      }
+
+      BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+      if (boardEntity == null) {
+        return PatchBoardResponseDto.notExistBoard();
+      }
+
+      boolean isWriter = boardEntity.getWriterEmail().equals(email);
+      if (!isWriter) {
+        return PatchBoardResponseDto.noPermission();
+      }
+
+      boardEntity.patchBoard(dto);
+      boardRepository.save(boardEntity);
+
+      List<ImageEntity> existingImages = imageRepository.findByBoardNumber(boardNumber);
+      for (ImageEntity imageEntity : existingImages) {
+        fileService.deleteImage(imageEntity.getImage());
+      }
+
+      imageRepository.deleteByBoardNumber(boardNumber);
+      List<String> boardImageList = dto.getBoardImageList();
+
+      List<ImageEntity> imageEntities = new ArrayList<>();
+      for (String image : boardImageList) {
+        ImageEntity imageEntity = new ImageEntity(boardNumber, image);
+        imageEntities.add(imageEntity);
+      }
+      imageRepository.saveAll(imageEntities);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return PatchBoardResponseDto.success();
+  }
+
+  @Override
   public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer commentNumber, String email) {
 
     try {
