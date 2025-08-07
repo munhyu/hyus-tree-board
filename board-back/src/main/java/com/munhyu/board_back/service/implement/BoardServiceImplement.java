@@ -16,7 +16,7 @@ import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
 import com.munhyu.board_back.dto.response.ResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
-import com.munhyu.board_back.dto.response.board.GetBoardListResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardLatestListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
@@ -127,7 +127,7 @@ public class BoardServiceImplement implements BoardService {
   }
 
   @Override
-  public ResponseEntity<? super GetBoardListResponseDto> getLatestBoardList(int page) {
+  public ResponseEntity<? super GetBoardLatestListResponseDto> getLatestBoardList(int page) {
 
     Page<BoardListViewEntity> boardPage = null;
 
@@ -141,7 +141,7 @@ public class BoardServiceImplement implements BoardService {
       return ResponseDto.databaseError();
     }
 
-    return GetBoardListResponseDto.success(boardPage);
+    return GetBoardLatestListResponseDto.success(boardPage);
 
   }
 

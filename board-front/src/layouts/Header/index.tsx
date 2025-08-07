@@ -266,7 +266,7 @@ export default function Header() {
     if (title && content) {
       return (
         <div className="black-button" onClick={onUploadButtonClickHandler}>
-          {"업로드"}
+          {isBoardWritePage ? "업로드" : "수정"}
         </div>
       );
     }
