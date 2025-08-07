@@ -1,6 +1,10 @@
 package com.munhyu.board_back.service.implement;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -18,6 +22,7 @@ import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardLatestListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
@@ -127,7 +132,7 @@ public class BoardServiceImplement implements BoardService {
   }
 
   @Override
-  public ResponseEntity<? super GetBoardLatestListResponseDto> getLatestBoardList(int page) {
+  public ResponseEntity<? super GetBoardLatestListResponseDto> getBoardLatestList(int page) {
 
     Page<BoardListViewEntity> boardPage = null;
 
@@ -143,6 +148,30 @@ public class BoardServiceImplement implements BoardService {
 
     return GetBoardLatestListResponseDto.success(boardPage);
 
+  }
+
+  @Override
+  public ResponseEntity<? super GetBoardTop3ListResponseDto> getBoardTop3List() {
+
+    List<BoardListViewEntity> boardListViewEntities = null;
+
+    try {
+
+      // 현재 날짜 기준으로 일주일 전
+      Date beforeWeek = Date.from(Instant.now().minus(7, ChronoUnit.DAYS));
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+      String beforeWeekStr = dateFormat.format(beforeWeek);
+
+      boardListViewEntities = boardListViewRepository
+          .findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(
+              beforeWeekStr);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetBoardTop3ListResponseDto.success(boardListViewEntities);
   }
 
   @Override

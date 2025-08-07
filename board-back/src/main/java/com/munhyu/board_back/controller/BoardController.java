@@ -18,6 +18,7 @@ import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardLatestListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
@@ -78,7 +79,13 @@ public class BoardController {
   @GetMapping("latest-list")
   public ResponseEntity<? super GetBoardLatestListResponseDto> getBoardList(
       @RequestParam(value = "page", defaultValue = "1") int page) {
-    ResponseEntity<? super GetBoardLatestListResponseDto> response = boardService.getLatestBoardList(page);
+    ResponseEntity<? super GetBoardLatestListResponseDto> response = boardService.getBoardLatestList(page);
+    return response;
+  }
+
+  @GetMapping("top-3")
+  public ResponseEntity<? super GetBoardTop3ListResponseDto> getBoardTop3List() {
+    ResponseEntity<? super GetBoardTop3ListResponseDto> response = boardService.getBoardTop3List();
     return response;
   }
 

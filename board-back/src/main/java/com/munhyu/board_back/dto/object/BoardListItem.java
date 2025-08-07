@@ -48,4 +48,12 @@ public class BoardListItem {
     return list;
   }
 
+  public static List<BoardListItem> getList(List<BoardListViewEntity> entities) {
+    List<BoardListItem> list = new ArrayList<>();
+    for (BoardListViewEntity entity : entities) {
+      list.add(new BoardListItem(entity));
+    }
+    return list;
+  }
+
 }

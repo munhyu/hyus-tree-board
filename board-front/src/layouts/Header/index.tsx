@@ -200,8 +200,7 @@ export default function Header() {
       if (code !== "SU") return;
 
       resetBoard();
-      if (!boardNumber) return;
-      navigate(BOARD_PATH() + "/" + BOARD_DETAIL_PATH(boardNumber));
+      navigate(MAIN_PATH());
     };
 
     //          function: patch board response 처리 함수          //

@@ -9,6 +9,7 @@ import com.munhyu.board_back.dto.response.board.DeleteBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.DeleteCommentResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardLatestListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
@@ -25,7 +26,9 @@ public interface BoardService {
 
   ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
 
-  ResponseEntity<? super GetBoardLatestListResponseDto> getLatestBoardList(int page);
+  ResponseEntity<? super GetBoardLatestListResponseDto> getBoardLatestList(int page);
+
+  ResponseEntity<? super GetBoardTop3ListResponseDto> getBoardTop3List();
 
   ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
 
