@@ -13,6 +13,7 @@ import {
   DeleteCommentResponseDto,
   GetBoardLatestListResponseDto,
   GetBoardResponseDto,
+  GetBoardTop3ListResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
   IncreaseViewCountResponseDto,
@@ -21,6 +22,7 @@ import {
   PostCommentResponseDto,
   PutFavoriteResponseDto,
 } from "./response/board";
+import { GetPopularListResponseDto } from "./response/search";
 
 const DOMAIN = "http://localhost:4000";
 
@@ -67,6 +69,24 @@ export const signUpRequest = async (requestBody: SignUpRequestDto) => {
     });
   return result;
 };
+//          description: search          //
+const GET_POPULAR_LIST_URL = () => `${API_DOMAIN}/search/popular-list`;
+
+export const getPopularListRequest = async () => {
+  const result = await axios
+    .get(GET_POPULAR_LIST_URL())
+    .then((response) => {
+      const responseBody: GetPopularListResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
 //          description: user          //
 const GET_SIGN_IN_USER_URL = () => `${API_DOMAIN}/user`;
 
@@ -108,6 +128,7 @@ const PUT_FAVORITE_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/favorite`;
 const GET_BOARD_LATEST_LIST_URL = (page: number) =>
   `${API_DOMAIN}/board/latest-list?page=${page}`;
+const GET_BOARD_TOP_3_LIST_URL = () => `${API_DOMAIN}/board/top-3`;
 
 export const getBoardRequest = async (boardNumber: number | string) => {
   const result = await axios
@@ -129,6 +150,21 @@ export const getBoardLatestListRequest = async (page: number) => {
     .get(GET_BOARD_LATEST_LIST_URL(page))
     .then((response) => {
       const responseBody: GetBoardLatestListResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+
+export const getBoardTop3ListRequest = async () => {
+  const result = await axios
+    .get(GET_BOARD_TOP_3_LIST_URL())
+    .then((response) => {
+      const responseBody: GetBoardTop3ListResponseDto = response.data;
       return responseBody;
     })
     .catch((error) => {

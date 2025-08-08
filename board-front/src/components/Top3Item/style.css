@@ -10,6 +10,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   background-position: 50%;
   background-size: 100%;
+  background-repeat: no-repeat;
 
   cursor: pointer;
 }
@@ -19,6 +20,12 @@
 }
 
 .top-3-list-item-main-box {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 8px;
+
+  width: 300px;
+
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -96,39 +103,10 @@
   line-height: 140%;
 }
 
-/* .top-3-list-item-bottom {} */
-
 .top-3-list-item-counts {
   font-size: 12px;
   font-weight: 400;
   line-height: 140%;
   color: rgba(255, 255, 255, 0.7);
+  overflow: hidden;
 }
-
-/* <div className="top-3-list-item">
-<div className="top-3-list-item-main-box">
-  <div className="top-3-list-item-top">
-    <div className="top-3-list-item-profile-box">
-      <div
-        className="top-3-list-item-profile-image"
-        style={{
-          backgroundImage: `url(https://picsum.photos/id/238/200/300)`,
-        }}
-      ></div>
-    </div>
-    <div className="top-3-list-item-write-box">
-      <div className="top-3-list-item-nickname">{"작성자1"}</div>
-      <div className="top-3-list-item-write-datetime">
-        {"2025.11.12."}
-      </div>
-    </div>
-  </div>
-  <div className="top-3-list-item-middle">
-    <div className="top-3-list-item-title">{"게시물 제목"}</div>
-    <div className="top-3-list-item-content">{"게시물 내용"}</div>
-  </div>
-  <div className="top-3-list-item-bottom">
-    <div className="top-3-list-item-counts">{`댓글 0 • 좋아요 0 • 조회수 0`}</div>
-  </div>
-</div>
-</div> */

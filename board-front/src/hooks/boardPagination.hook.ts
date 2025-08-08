@@ -20,10 +20,10 @@ const useBoardPagination = () => {
       return;
     }
 
-    if ("boardList" in responseBody) {
-      setBoardList(responseBody.boardList);
-      setTotalPages(responseBody.totalPages);
-    }
+    const { boardList, totalPages } =
+      responseBody as GetBoardLatestListResponseDto;
+    setBoardList(boardList);
+    setTotalPages(totalPages);
   };
 
   //          effect: 현재 페이지가 변경될 때 마다 실행될 함수          //
