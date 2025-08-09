@@ -25,6 +25,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.munhyu.board_back.dto.response.board.GetSearchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
@@ -35,12 +36,8 @@ import com.munhyu.board_back.entity.BoardListViewEntity;
 import com.munhyu.board_back.entity.CommentEntity;
 import com.munhyu.board_back.entity.FavoriteEntity;
 import com.munhyu.board_back.entity.ImageEntity;
-import com.munhyu.board_back.repository.BoardListViewRepository;
-import com.munhyu.board_back.repository.BoardRepository;
-import com.munhyu.board_back.repository.CommentRepository;
-import com.munhyu.board_back.repository.FavoriteRepository;
-import com.munhyu.board_back.repository.ImageRepository;
-import com.munhyu.board_back.repository.UserRepository;
+import com.munhyu.board_back.entity.SearchLogEntity;
+import com.munhyu.board_back.repository.*;
 import com.munhyu.board_back.repository.resultSet.GetBoardResultSet;
 import com.munhyu.board_back.repository.resultSet.GetCommentListResultSet;
 import com.munhyu.board_back.repository.resultSet.GetFavoriteListResultSet;
@@ -59,6 +56,7 @@ public class BoardServiceImplement implements BoardService {
   private final CommentRepository commentRepository;
   private final FavoriteRepository favoriteRepository;
   private final BoardListViewRepository boardListViewRepository;
+  private final SearchLogRepository searchLogRepository;
   private final FileService fileService;
 
   @Override
@@ -172,6 +170,40 @@ public class BoardServiceImplement implements BoardService {
     }
 
     return GetBoardTop3ListResponseDto.success(boardListViewEntities);
+  }
+
+  @Override
+  public ResponseEntity<? super GetSearchBoardResponseDto> getSearchBoardListResponseEntity(int page, String searchWord,
+      String preSearchWord) {
+
+    Page<BoardListViewEntity> boardPage = null;
+
+    try {
+
+      Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("writeDatetime").descending());
+
+      boardPage = boardListViewRepository
+          .findByTitleContainingOrContentContaining(searchWord, searchWord, pageable);
+
+      if (page == 1) {
+        SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord, preSearchWord, false);
+        searchLogRepository.save(searchLogEntity);
+
+        boolean relation = preSearchWord != null;
+        if (relation) {
+          searchLogEntity = new SearchLogEntity(preSearchWord, searchWord, relation);
+          searchLogRepository.save(searchLogEntity);
+        }
+
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetSearchBoardResponseDto.success(boardPage);
+
   }
 
   @Override

@@ -21,6 +21,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.munhyu.board_back.dto.response.board.GetSearchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
@@ -29,6 +30,7 @@ import com.munhyu.board_back.dto.response.board.PutFavoriteResponseDto;
 import com.munhyu.board_back.service.BoardService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -76,16 +78,27 @@ public class BoardController {
     return response;
   }
 
-  @GetMapping("latest-list")
+  @GetMapping("/latest-list")
   public ResponseEntity<? super GetBoardLatestListResponseDto> getBoardList(
-      @RequestParam(value = "page", defaultValue = "1") int page) {
+      @RequestParam(value = "page", defaultValue = "1") @Min(1) int page) {
     ResponseEntity<? super GetBoardLatestListResponseDto> response = boardService.getBoardLatestList(page);
     return response;
   }
 
-  @GetMapping("top-3")
+  @GetMapping("/top-3")
   public ResponseEntity<? super GetBoardTop3ListResponseDto> getBoardTop3List() {
     ResponseEntity<? super GetBoardTop3ListResponseDto> response = boardService.getBoardTop3List();
+    return response;
+  }
+
+  @GetMapping(value = { "/search-list/{searchWord}", "/search-list/{searchWord}/{preSearchWord}" })
+  public ResponseEntity<? super GetSearchBoardResponseDto> getSearchBoard(
+      @RequestParam(value = "page", defaultValue = "1") @Min(1) int page,
+      @PathVariable(value = "searchWord") String searchWord,
+      @PathVariable(value = "preSearchWord", required = false) String preSearchWord) {
+
+    ResponseEntity<? super GetSearchBoardResponseDto> response = boardService.getSearchBoardListResponseEntity(page,
+        searchWord, preSearchWord);
     return response;
   }
 

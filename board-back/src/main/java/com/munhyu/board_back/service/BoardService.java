@@ -12,6 +12,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
+import com.munhyu.board_back.dto.response.board.GetSearchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
@@ -29,6 +30,9 @@ public interface BoardService {
   ResponseEntity<? super GetBoardLatestListResponseDto> getBoardLatestList(int page);
 
   ResponseEntity<? super GetBoardTop3ListResponseDto> getBoardTop3List();
+
+  ResponseEntity<? super GetSearchBoardResponseDto> getSearchBoardListResponseEntity(int page, String searchWord,
+      String preSearchWord);
 
   ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email);
 
