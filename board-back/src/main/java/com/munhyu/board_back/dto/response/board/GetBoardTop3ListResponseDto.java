@@ -1,6 +1,5 @@
 package com.munhyu.board_back.dto.response.board;
 
-import java.io.ObjectInputFilter.Status;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;

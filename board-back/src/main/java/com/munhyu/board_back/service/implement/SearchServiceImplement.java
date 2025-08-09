@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.munhyu.board_back.dto.response.ResponseDto;
 import com.munhyu.board_back.dto.response.search.GetPopularListResponseDto;
+import com.munhyu.board_back.dto.response.search.GetRelationListResponseDto;
 import com.munhyu.board_back.repository.SearchLogRepository;
 import com.munhyu.board_back.repository.resultSet.GetPopularListResultSet;
+import com.munhyu.board_back.repository.resultSet.GetRelationListResultSet;
 import com.munhyu.board_back.service.SearchService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,22 @@ public class SearchServiceImplement implements SearchService {
     }
 
     return GetPopularListResponseDto.success(resultSets);
+  }
+
+  @Override
+  public ResponseEntity<? super GetRelationListResponseDto> getRelationList(String searchWord) {
+
+    List<GetRelationListResultSet> resultSets = new ArrayList<>();
+
+    try {
+      resultSets = searchLogRepository.getRelationList(searchWord);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetRelationListResponseDto.success(resultSets);
   }
 
 }

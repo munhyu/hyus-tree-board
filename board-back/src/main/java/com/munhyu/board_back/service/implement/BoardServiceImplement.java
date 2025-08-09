@@ -185,7 +185,7 @@ public class BoardServiceImplement implements BoardService {
       boardPage = boardListViewRepository
           .findByTitleContainingOrContentContaining(searchWord, searchWord, pageable);
 
-      if (page == 1) {
+      if (page == 1 && !searchWord.equals(preSearchWord)) {
         SearchLogEntity searchLogEntity = new SearchLogEntity(searchWord, preSearchWord, false);
         searchLogRepository.save(searchLogEntity);
 
