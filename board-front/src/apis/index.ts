@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { SignInRequestDto, SignUpRequestDto } from "./request/auth";
 import { SignInResponseDto, SignUpResponseDto } from "./response/auth";
 import { ResponseDto } from "./response";
@@ -31,7 +31,9 @@ import {
 const DOMAIN = "http://localhost:4000";
 
 const API_DOMAIN = `${DOMAIN}/api/v1`;
+export const FILE_DOMAIN = `${DOMAIN}/file`;
 
+//          function: authorization 헤더 생성 함수          //
 const authorizationHeader = (accessToken: string) => {
   return {
     headers: {
@@ -40,113 +42,66 @@ const authorizationHeader = (accessToken: string) => {
   };
 };
 
-//          description: authorization          //
+//          function: axios 요청 함수          //
+const api = async <T extends ResponseDto>(
+  request: Promise<AxiosResponse<T>>
+): Promise<T | null> => {
+  try {
+    const response = await request;
+
+    const responseBody: T = response.data;
+
+    return responseBody;
+  } catch (error: any) {
+    if (error.response?.data) {
+      const responseBody: ResponseDto = error.response.data;
+
+      return responseBody as T;
+    }
+
+    return null;
+  }
+};
+
+//          description: auth 관련 요청          //
 const SIGN_IN_URL = () => `${API_DOMAIN}/auth/sign-in`;
 const SIGN_UP_URL = () => `${API_DOMAIN}/auth/sign-up`;
 
-export const signInRequest = async (requestBody: SignInRequestDto) => {
-  const result = await axios
-    .post(SIGN_IN_URL(), requestBody)
-    .then((response) => {
-      const responseBody: SignInResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response.data) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const signInRequest = (requestBody: SignInRequestDto) =>
+  api(axios.post<SignInResponseDto>(SIGN_IN_URL(), requestBody));
 
-export const signUpRequest = async (requestBody: SignUpRequestDto) => {
-  const result = await axios
-    .post(SIGN_UP_URL(), requestBody)
-    .then((response) => {
-      const responseBody: SignUpResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response.data) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
-//          description: search          //
+export const signUpRequest = (requestBody: SignUpRequestDto) =>
+  api(axios.post<SignUpResponseDto>(SIGN_UP_URL(), requestBody));
+
+//          description: search 관련 요청          //
 const GET_POPULAR_LIST_URL = () => `${API_DOMAIN}/search/popular-list`;
 const GET_RELATION_LIST_URL = (searchWord: string) =>
   `${API_DOMAIN}/search/${searchWord}/relation-list`;
 
-export const getPopularListRequest = async () => {
-  const result = await axios
-    .get(GET_POPULAR_LIST_URL())
-    .then((response) => {
-      const responseBody: GetPopularListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getPopularListRequest = () =>
+  api(axios.get<GetPopularListResponseDto>(GET_POPULAR_LIST_URL()));
 
-export const getRelationListRequest = async (searchWord: string) => {
-  const result = await axios
-    .get(GET_RELATION_LIST_URL(searchWord))
-    .then((response) => {
-      const responseBody: GetRelationListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getRelationListRequest = (searchWord: string) =>
+  api(axios.get<GetRelationListResponseDto>(GET_RELATION_LIST_URL(searchWord)));
 
-//          description: user          //
+//          description: user 관련 요청          //
 const GET_SIGN_IN_USER_URL = () => `${API_DOMAIN}/user`;
 
-export const getSignInUserRequest = async (accessToken: string) => {
-  const result = await axios
-    .get(GET_SIGN_IN_USER_URL(), authorizationHeader(accessToken))
-    .then((response) => {
-      const responseBody: GetSignInUserResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
+export const getSignInUserRequest = (accessToken: string) =>
+  api(
+    axios.get<GetSignInUserResponseDto>(
+      GET_SIGN_IN_USER_URL(),
+      authorizationHeader(accessToken)
+    )
+  );
 
-  return result;
-};
-
-//          description: board          //
+//          description: board 관련 요청          //
 const GET_BOARD_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}`;
-const INCREASE_VIEW_COUNT_URL = (boardNumber: number | string) =>
-  `${API_DOMAIN}/board/${boardNumber}/increase-view-count`;
 const GET_FAVORITE_LIST_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/favorite-list`;
-const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
-const POST_COMMENT_URL = (boardNumber: number | string) =>
-  `${API_DOMAIN}/board/${boardNumber}/comment`;
 const GET_COMMENT_LIST_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/comment-list`;
-const DELETE_COMMENT_URL = (commentNumber: number) =>
-  `${API_DOMAIN}/board/comment/${commentNumber}`;
-const DELETE_BOARD_URL = (boardNumber: number | string) =>
-  `${API_DOMAIN}/board/${boardNumber}`;
-const PATCH_BOARD_URL = (boardNumber: number | string) =>
-  `${API_DOMAIN}/board/${boardNumber}`;
-const PUT_FAVORITE_URL = (boardNumber: number | string) =>
-  `${API_DOMAIN}/board/${boardNumber}/favorite`;
 const GET_BOARD_LATEST_LIST_URL = (page: number) =>
   `${API_DOMAIN}/board/latest-list?page=${page}`;
 const GET_BOARD_TOP_3_LIST_URL = () => `${API_DOMAIN}/board/top-3`;
@@ -158,241 +113,130 @@ const GET_BOARD_SEARCH_LIST_URL = (
   `${API_DOMAIN}/board/search-list/${searchWord}${
     preSearchWord ? `/${preSearchWord}` : ""
   }?page=${page}`;
+const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
+const POST_COMMENT_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}/comment`;
+const DELETE_COMMENT_URL = (commentNumber: number) =>
+  `${API_DOMAIN}/board/comment/${commentNumber}`;
+const DELETE_BOARD_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}`;
+const PATCH_BOARD_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}`;
+const PUT_FAVORITE_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}/favorite`;
+const INCREASE_VIEW_COUNT_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}/increase-view-count`;
 
-export const getBoardRequest = async (boardNumber: number | string) => {
-  const result = await axios
-    .get(GET_BOARD_URL(boardNumber))
-    .then((response) => {
-      const responseBody: GetBoardResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getBoardRequest = (boardNumber: number | string) =>
+  api(axios.get<GetBoardResponseDto>(GET_BOARD_URL(boardNumber)));
 
-export const getBoardLatestListRequest = async (page: number) => {
-  const result = await axios
-    .get(GET_BOARD_LATEST_LIST_URL(page))
-    .then((response) => {
-      const responseBody: GetBoardLatestListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getBoardLatestListRequest = (page: number) =>
+  api(
+    axios.get<GetBoardLatestListResponseDto>(GET_BOARD_LATEST_LIST_URL(page))
+  );
 
-export const getBoardTop3ListRequest = async () => {
-  const result = await axios
-    .get(GET_BOARD_TOP_3_LIST_URL())
-    .then((response) => {
-      const responseBody: GetBoardTop3ListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getBoardTop3ListRequest = () =>
+  api(axios.get<GetBoardTop3ListResponseDto>(GET_BOARD_TOP_3_LIST_URL()));
 
-export const getBoardSearchListRequest = async (
+export const getBoardSearchListRequest = (
   searchWord: string,
   page: number,
   preSearchWord: string | undefined
-) => {
-  const result = await axios
-    .get(GET_BOARD_SEARCH_LIST_URL(searchWord, page, preSearchWord))
-    .then((response) => {
-      const responseBody: GetBoardSearchListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+) =>
+  api(
+    axios.get<GetBoardSearchListResponseDto>(
+      GET_BOARD_SEARCH_LIST_URL(searchWord, page, preSearchWord)
+    )
+  );
 
-export const increaseViewCountRequest = async (
-  boardNumber: number | string
-) => {
-  const result = await axios
-    .get(INCREASE_VIEW_COUNT_URL(boardNumber))
-    .then((response) => {
-      const responseBody: IncreaseViewCountResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getFavoriteListRequest = (boardNumber: number | string) =>
+  api(
+    axios.get<GetFavoriteListResponseDto>(GET_FAVORITE_LIST_URL(boardNumber))
+  );
 
-export const getFavoriteListRequest = async (boardNumber: number | string) => {
-  const result = await axios
-    .get(GET_FAVORITE_LIST_URL(boardNumber))
-    .then((response) => {
-      const responseBody: GetFavoriteListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+export const getCommentListRequest = (boardNumber: number | string) =>
+  api(axios.get<GetCommentListResponseDto>(GET_COMMENT_LIST_URL(boardNumber)));
 
-export const getCommentListRequest = async (boardNumber: number | string) => {
-  const result = await axios
-    .get(GET_COMMENT_LIST_URL(boardNumber))
-    .then((response) => {
-      const responseBody: GetCommentListResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
-
-export const postBoardRequest = async (
+export const postBoardRequest = (
   requestBody: PostBoardRequestDto,
   accessToken: string
-) => {
-  const result = await axios
-    .post(POST_BOARD_URL(), requestBody, authorizationHeader(accessToken))
-    .then((response) => {
-      const responseBody: PostBoardResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+) =>
+  api(
+    axios.post<PostBoardResponseDto>(
+      POST_BOARD_URL(),
+      requestBody,
+      authorizationHeader(accessToken)
+    )
+  );
 
-export const postCommentRequest = async (
+export const postCommentRequest = (
   boardNumber: number | string,
   requestBody: PostCommentRequestDto,
   accessToken: string
-) => {
-  const result = await axios
-    .post(
+) =>
+  api(
+    axios.post<PostCommentResponseDto>(
       POST_COMMENT_URL(boardNumber),
       requestBody,
       authorizationHeader(accessToken)
     )
-    .then((response) => {
-      const responseBody: PostCommentResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+  );
 
-export const patchBoardRequest = async (
+export const patchBoardRequest = (
   boardNumber: number | string,
   requestBody: PatchBoardRequestDto,
   accessToken: string
-) => {
-  const result = await axios
-    .patch(
+) =>
+  api(
+    axios.patch<PatchBoardResponseDto>(
       PATCH_BOARD_URL(boardNumber),
       requestBody,
       authorizationHeader(accessToken)
     )
-    .then((response) => {
-      const responseBody: PatchBoardResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+  );
 
-export const putFavoriteRequest = async (
+export const putFavoriteRequest = (
   boardNumber: number | string,
   accessToken: string
-) => {
-  const result = await axios
-    .put(PUT_FAVORITE_URL(boardNumber), {}, authorizationHeader(accessToken))
-    .then((response) => {
-      const responseBody: PutFavoriteResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+) =>
+  api(
+    axios.put<PutFavoriteResponseDto>(
+      PUT_FAVORITE_URL(boardNumber),
+      {},
+      authorizationHeader(accessToken)
+    )
+  );
 
-export const deleteCommentRequest = async (
+export const deleteCommentRequest = (
   commentNumber: number,
   accessToken: string
-) => {
-  const result = await axios
-    .delete(DELETE_COMMENT_URL(commentNumber), authorizationHeader(accessToken))
-    .then((response) => {
-      const responseBody: DeleteCommentResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+) =>
+  api(
+    axios.delete<DeleteCommentResponseDto>(
+      DELETE_COMMENT_URL(commentNumber),
+      authorizationHeader(accessToken)
+    )
+  );
 
-export const deleteBoardRequest = async (
+export const deleteBoardRequest = (
   boardNumber: number | string,
   accessToken: string
-) => {
-  const result = await axios
-    .delete(DELETE_BOARD_URL(boardNumber), authorizationHeader(accessToken))
-    .then((response) => {
-      const responseBody: DeleteBoardResponseDto = response.data;
-      return responseBody;
-    })
-    .catch((error) => {
-      if (!error.response) return null;
-      const responseBody: ResponseDto = error.response.data;
-      return responseBody;
-    });
-  return result;
-};
+) =>
+  api(
+    axios.delete<DeleteBoardResponseDto>(
+      DELETE_BOARD_URL(boardNumber),
+      authorizationHeader(accessToken)
+    )
+  );
 
-//         description: file          //
-export const FILE_DOMAIN = `${DOMAIN}/file`;
-
+export const increaseViewCountRequest = (boardNumber: number | string) =>
+  api(
+    axios.get<IncreaseViewCountResponseDto>(
+      INCREASE_VIEW_COUNT_URL(boardNumber)
+    )
+  );
+//          description: file 관련 요청          //
 const FILE_UPLOAD_URL = () => `${FILE_DOMAIN}/upload`;
-
 const multipartHeaders = {
   headers: {
     "Content-Type": "multipart/form-data",
