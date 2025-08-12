@@ -16,6 +16,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 public class UserEntity {
 
+  @Id
+  private String email;
+  private String password;
+  private String nickname;
+  private String profileImage;
+  private boolean agreedPersonal;
+
   public UserEntity(SignUpRequestDto dto) {
     this.email = dto.getEmail();
     this.password = dto.getPassword();
@@ -23,11 +30,12 @@ public class UserEntity {
     this.agreedPersonal = dto.getAgreedPersonal();
   }
 
-  @Id
-  private String email;
-  private String password;
-  private String nickname;
-  private String profileImage;
-  private boolean agreedPersonal;
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
+  }
+
+  public void setProfileImage(String profileImage) {
+    this.profileImage = profileImage;
+  }
 
 }
