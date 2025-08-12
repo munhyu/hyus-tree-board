@@ -26,6 +26,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetSearchBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetUserBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
@@ -204,6 +205,29 @@ public class BoardServiceImplement implements BoardService {
 
     return GetSearchBoardResponseDto.success(boardPage);
 
+  }
+
+  @Override
+  public ResponseEntity<? super GetUserBoardResponseDto> getUserBoardList(int page, String email) {
+
+    Page<BoardListViewEntity> boardListViewEntities = null;
+    try {
+
+      boolean existedEmail = userRepository.existsByEmail(email);
+      if (!existedEmail) {
+        return GetUserBoardResponseDto.notExistUser();
+      }
+
+      Pageable pageable = PageRequest.of(page - 1, 10, Sort.by("writeDatetime").descending());
+
+      boardListViewEntities = boardListViewRepository.findByWriterEmail(email, pageable);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseDto.databaseError();
+    }
+
+    return GetUserBoardResponseDto.success(boardListViewEntities);
   }
 
   @Override

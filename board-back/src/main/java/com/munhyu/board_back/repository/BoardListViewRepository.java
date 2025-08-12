@@ -16,6 +16,8 @@ public interface BoardListViewRepository extends JpaRepository<BoardListViewEnti
 
   Page<BoardListViewEntity> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
 
+  Page<BoardListViewEntity> findByWriterEmail(String email, Pageable pageable);
+
   List<BoardListViewEntity> findTop3ByWriteDatetimeGreaterThanOrderByFavoriteCountDescCommentCountDescViewCountDescWriteDatetimeDesc(
       String writeDatetime);
 

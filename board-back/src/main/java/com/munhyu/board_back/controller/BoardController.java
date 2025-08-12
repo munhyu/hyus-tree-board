@@ -22,6 +22,7 @@ import com.munhyu.board_back.dto.response.board.GetBoardTop3ListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetCommentListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetFavoriteListResponseDto;
 import com.munhyu.board_back.dto.response.board.GetSearchBoardResponseDto;
+import com.munhyu.board_back.dto.response.board.GetUserBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.munhyu.board_back.dto.response.board.PatchBoardResponseDto;
 import com.munhyu.board_back.dto.response.board.PostBoardResponseDto;
@@ -99,6 +100,15 @@ public class BoardController {
 
     ResponseEntity<? super GetSearchBoardResponseDto> response = boardService.getSearchBoardListResponseEntity(page,
         searchWord, preSearchWord);
+    return response;
+  }
+
+  @GetMapping("user-board-list/{email}")
+  public ResponseEntity<? super GetUserBoardResponseDto> getUserBoardList(
+      @RequestParam(value = "page", defaultValue = "1") @Min(1) int page,
+      @PathVariable("email") String email) {
+
+    ResponseEntity<? super GetUserBoardResponseDto> response = boardService.getUserBoardList(page, email);
     return response;
   }
 
