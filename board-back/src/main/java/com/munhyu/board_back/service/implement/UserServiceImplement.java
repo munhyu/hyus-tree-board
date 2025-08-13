@@ -12,6 +12,7 @@ import com.munhyu.board_back.dto.response.user.PatchNicknameResponseDto;
 import com.munhyu.board_back.dto.response.user.PatchProfileImageResponseDto;
 import com.munhyu.board_back.entity.UserEntity;
 import com.munhyu.board_back.repository.UserRepository;
+import com.munhyu.board_back.service.FileService;
 import com.munhyu.board_back.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImplement implements UserService {
 
   private final UserRepository userRepository;
+  private final FileService fileService;
 
   @Override
   public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(String email) {
@@ -102,6 +104,9 @@ public class UserServiceImplement implements UserService {
       String profileImage = dto.getProfileImage();
       userEntity.setProfileImage(profileImage);
       userRepository.save(userEntity);
+
+      String previousProfileImage = dto.getPreviousProfileImage();
+      fileService.deleteImage(previousProfileImage);
 
     } catch (Exception e) {
       e.printStackTrace();

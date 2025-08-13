@@ -10,5 +10,6 @@ import lombok.Setter;
 public class PatchProfileImageRequestDto {
 
   private String profileImage;
+  private String previousProfileImage;
 
 }
