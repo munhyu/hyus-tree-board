@@ -54,10 +54,10 @@ export default function Search() {
       <div className="search-container">
         <div className="search-title-box">
           <div className="search-title">
-            <span className="emphasis">{searchWord}</span>에 대한 검색
-            결과입니다.
+            <span className="emphasis">{searchWord}</span>
+            {"에 대한 검색 결과입니다. "}
+            <span className="emphasis">{searchCount}</span>
           </div>
-          <div className="search-count">{searchCount}</div>
         </div>
         <div className="search-contents-box">
           {searchCount === 0 ? (

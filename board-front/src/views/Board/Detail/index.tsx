@@ -162,7 +162,9 @@ export default function BoardDetail() {
                 className="board-detail-writer-profile-image"
                 style={{
                   backgroundImage: `url(${
-                    board ? board.writerProfileImage : defaultProfileImage
+                    board.writerProfileImage
+                      ? board.writerProfileImage
+                      : defaultProfileImage
                   })`,
                 }}
               ></div>

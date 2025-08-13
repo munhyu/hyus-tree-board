@@ -284,7 +284,7 @@ export default function Header() {
           <div className="header-logo">{`Hyu's Tree`}</div>
         </div>
         <div className="header-right-box">
-          {(isAuthPage || isMainPage || isSearchPage || isBoardDetailPage) && (
+          {(isMainPage || isSearchPage || isBoardDetailPage || isUserPage) && (
             <SearchButton />
           )}
           {(isMainPage || isSearchPage || isBoardDetailPage || isUserPage) && (
