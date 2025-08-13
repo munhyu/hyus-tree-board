@@ -2,7 +2,12 @@ import axios, { AxiosResponse } from "axios";
 import { SignInRequestDto, SignUpRequestDto } from "./request/auth";
 import { SignInResponseDto, SignUpResponseDto } from "./response/auth";
 import { ResponseDto } from "./response";
-import { GetSignInUserResponseDto } from "./response/user";
+import {
+  GetSignInUserResponseDto,
+  GetUserResponseDto,
+  PatchNicknameResponseDto,
+  PatchProfileImageResponseDto,
+} from "./response/user";
 import {
   PatchBoardRequestDto,
   PostBoardRequestDto,
@@ -17,6 +22,7 @@ import {
   GetBoardTop3ListResponseDto,
   GetCommentListResponseDto,
   GetFavoriteListResponseDto,
+  GetUserBoardListResponseDto,
   IncreaseViewCountResponseDto,
   PatchBoardResponseDto,
   PostBoardResponseDto,
@@ -27,6 +33,10 @@ import {
   GetPopularListResponseDto,
   GetRelationListResponseDto,
 } from "./response/search";
+import {
+  PatchNicknameRequestDto,
+  PatchProfileImageRequestDto,
+} from "./request/user";
 
 const DOMAIN = "http://localhost:4000";
 
@@ -86,11 +96,41 @@ export const getRelationListRequest = (searchWord: string) =>
 
 //          description: user 관련 요청          //
 const GET_SIGN_IN_USER_URL = () => `${API_DOMAIN}/user`;
+const GET_USER_URL = (email: string) => `${API_DOMAIN}/user/${email}`;
+const PATCH_NICKNAME_URL = () => `${API_DOMAIN}/user/nickname`;
+const PATCH_PROFILE_IMAGE_URL = () => `${API_DOMAIN}/user/profile-image`;
 
 export const getSignInUserRequest = (accessToken: string) =>
   api(
     axios.get<GetSignInUserResponseDto>(
       GET_SIGN_IN_USER_URL(),
+      authorizationHeader(accessToken)
+    )
+  );
+
+export const getUserRequest = (email: string) =>
+  api(axios.get<GetUserResponseDto>(GET_USER_URL(email)));
+
+export const patchNicknameRequest = (
+  requestBody: PatchNicknameRequestDto,
+  accessToken: string
+) =>
+  api(
+    axios.patch<PatchNicknameResponseDto>(
+      PATCH_NICKNAME_URL(),
+      requestBody,
+      authorizationHeader(accessToken)
+    )
+  );
+
+export const patchProfileImageRequest = (
+  requestBody: PatchProfileImageRequestDto,
+  accessToken: string
+) =>
+  api(
+    axios.patch<PatchProfileImageResponseDto>(
+      PATCH_PROFILE_IMAGE_URL(),
+      requestBody,
       authorizationHeader(accessToken)
     )
   );
@@ -113,6 +153,8 @@ const GET_BOARD_SEARCH_LIST_URL = (
   `${API_DOMAIN}/board/search-list/${searchWord}${
     preSearchWord ? `/${preSearchWord}` : ""
   }?page=${page}`;
+const GET_USER_BOARD_LIST_URL = (email: string, page: number) =>
+  `${API_DOMAIN}/board/user-board-list/${email}?page=${page}`;
 const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
 const POST_COMMENT_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/comment`;
@@ -147,6 +189,11 @@ export const getBoardSearchListRequest = (
     axios.get<GetBoardSearchListResponseDto>(
       GET_BOARD_SEARCH_LIST_URL(searchWord, page, preSearchWord)
     )
+  );
+
+export const getUserBoardListRequest = (email: string, page: number) =>
+  api(
+    axios.get<GetUserBoardListResponseDto>(GET_USER_BOARD_LIST_URL(email, page))
   );
 
 export const getFavoriteListRequest = (boardNumber: number | string) =>

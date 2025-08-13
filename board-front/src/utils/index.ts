@@ -1,3 +1,5 @@
+import compressAndResizeImage from "./compressAndResizeImage";
+
 export const convertUrlToFile = async (url: string) => {
   const response = await fetch(url);
   const data = await response.blob();
@@ -16,3 +18,5 @@ export const convertUrlsToFile = async (urls: string[]) => {
   }
   return files;
 };
+
+export { compressAndResizeImage };

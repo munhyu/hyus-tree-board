@@ -11,12 +11,14 @@ import GetBoardLatestListResponseDto from "./get-board-latest-list.response.dto"
 import PatchBoardResponseDto from "./patch-board.response.dto";
 import GetBoardTop3ListResponseDto from "./get-board-top-3-list.response.dto";
 import GetBoardSearchListResponseDto from "./get-board-search-list.response.dto";
+import GetUserBoardListResponseDto from "./get-user-board-list.response.dto";
 
 export type {
   GetBoardResponseDto,
   IncreaseViewCountResponseDto,
   GetFavoriteListResponseDto,
   GetCommentListResponseDto,
+  GetUserBoardListResponseDto,
   PostBoardResponseDto,
   PostCommentResponseDto,
   DeleteCommentResponseDto,
