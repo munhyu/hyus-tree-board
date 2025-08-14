@@ -136,8 +136,14 @@ export default function User() {
       event: ChangeEvent<HTMLInputElement>
     ) => {
       if (!event.target.files || event.target.files.length === 0) return;
+      const MAX_PROFILE_IMAGE_SIZE_BYTES = 20 * 1024 * 1024;
 
       const file = event.target.files[0];
+      if (file.size > MAX_PROFILE_IMAGE_SIZE_BYTES) {
+        alert(`파일 크기가 너무 큽니다. 20MB 이하의 파일을 선택해주세요`);
+        return;
+      }
+
       const compressedFile = await compressAndResizeImage(file, 200, 200, 0.8);
       const data = new FormData();
       data.append("file", compressedFile);

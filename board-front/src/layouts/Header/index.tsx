@@ -227,8 +227,16 @@ export default function Header() {
       const accessToken = cookies.accessToken;
       if (!accessToken) return;
 
-      const boardImageList: string[] = [];
+      const MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024;
 
+      for (const file of boardImageFileList) {
+        if (file.size > MAX_FILE_SIZE_BYTES) {
+          alert(`파일 크기가 너무 큽니다. 20MB 이하의 파일을 선택해주세요`);
+          return;
+        }
+      }
+
+      const boardImageList: string[] = [];
       for (const file of boardImageFileList) {
         const data = new FormData();
         data.append("file", file);

@@ -15,7 +15,9 @@ export default function Footer() {
             <div className="footer-logo-text">{"Hyu's Tree"}</div>
           </div>
           <div className="footer-link-box">
-            {/* <div className="footer-email-link">{""}</div> */}
+            <div className="footer-email-link">
+              {"zerorestservice@gmail.com"}
+            </div>
             <div className="icon-button">
               {/* <div className="icon insta-icon"></div> */}
             </div>

@@ -177,3 +177,136 @@
   color: rgba(0, 0, 0, 1);
   cursor: pointer;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 1);
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: rgba(102, 102, 102, 1);
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-button:hover {
+  color: rgba(51, 51, 51, 1);
+}
+
+.modal-body {
+  padding: 20px 24px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.privacy-policy-content {
+  line-height: 1.6;
+  color: rgba(51, 51, 51, 1);
+}
+
+.privacy-policy-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 20px 0 10px 0;
+  color: rgba(44, 62, 80, 1);
+}
+
+.privacy-policy-content h3:first-child {
+  margin-top: 0;
+}
+
+.privacy-policy-content p {
+  font-size: 14px;
+  margin: 10px 0;
+  color: rgba(85, 85, 85, 1);
+}
+
+.privacy-policy-content ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.privacy-policy-content li {
+  font-size: 14px;
+  margin: 5px 0;
+  color: rgba(85, 85, 85, 1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid rgba(224, 224, 224, 1);
+}
+
+.modal-disagree-button {
+  padding: 10px 20px;
+  border: 1px solid rgba(221, 221, 221, 1);
+  background: rgba(255, 255, 255, 1);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(102, 102, 102, 1);
+  transition: all 0.2s;
+}
+
+.modal-disagree-button:hover {
+  background: rgba(245, 245, 245, 1);
+}
+
+.modal-agree-button {
+  padding: 10px 20px;
+  background: rgba(0, 123, 255, 1);
+  color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.modal-agree-button:hover {
+  background: rgba(0, 86, 179, 1);
+}
