@@ -12,8 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import com.munhyu.board_back.dto.object.commentNotificationDto;
 import com.munhyu.board_back.dto.request.board.PatchBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostBoardRequestDto;
 import com.munhyu.board_back.dto.request.board.PostCommentRequestDto;
@@ -58,7 +60,9 @@ public class BoardServiceImplement implements BoardService {
   private final FavoriteRepository favoriteRepository;
   private final BoardListViewRepository boardListViewRepository;
   private final SearchLogRepository searchLogRepository;
+
   private final FileService fileService;
+  private final SimpMessagingTemplate messagingTemplate;
 
   @Override
   public ResponseEntity<? super GetBoardResponseDto> getBoard(Integer boardNumber) {
@@ -286,6 +290,13 @@ public class BoardServiceImplement implements BoardService {
 
       boardEntity.increaseCommentCount();
       boardRepository.save(boardEntity);
+
+      // websocket
+      String boardTitle = boardEntity.getTitle();
+      commentNotificationDto commentNotificationDto = new commentNotificationDto(boardTitle, commentEntity);
+
+      String writerEmail = boardEntity.getWriterEmail();
+      messagingTemplate.convertAndSendToUser(writerEmail, "/topic/comment_notification", commentNotificationDto);
 
     } catch (Exception e) {
       e.printStackTrace();

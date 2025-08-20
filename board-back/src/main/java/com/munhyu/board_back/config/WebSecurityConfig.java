@@ -44,8 +44,8 @@ public class WebSecurityConfig {
         .sessionManagement(sessionManagement -> sessionManagement
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request -> request
-            .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*").permitAll()
+            .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**", "/hyustree/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*", "/hyustree/**").permitAll()
             // .requestMatchers("/api/v1/user/**").hasRole("USER") 나중에 추가
             // .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated())
@@ -60,9 +60,10 @@ public class WebSecurityConfig {
   protected CorsConfigurationSource corsConfigurationSource() {
 
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOrigin("*");
+    corsConfiguration.addAllowedOrigin("http://localhost:3000");
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.addAllowedHeader("*");
+    corsConfiguration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", corsConfiguration);
