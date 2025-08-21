@@ -1,4 +1,5 @@
 import { AUTH_PATH } from "constant";
+import CommentNotificationLayout from "layouts/CommentNotificationLayout";
 import Footer from "layouts/Footer";
 import Header from "layouts/Header";
 import React from "react";
@@ -15,6 +16,8 @@ export default function Container() {
       <Header />
       <Outlet />
       {pathname !== AUTH_PATH() && <Footer />}
+
+      <CommentNotificationLayout />
     </div>
   );
 }

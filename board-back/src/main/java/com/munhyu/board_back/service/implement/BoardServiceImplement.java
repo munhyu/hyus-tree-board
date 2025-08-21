@@ -293,7 +293,9 @@ public class BoardServiceImplement implements BoardService {
 
       // websocket
       String boardTitle = boardEntity.getTitle();
-      commentNotificationDto commentNotificationDto = new commentNotificationDto(boardTitle, commentEntity);
+      String commentWriterNickname = userRepository.findByEmail(email).getNickname();
+      commentNotificationDto commentNotificationDto = new commentNotificationDto(boardTitle, commentWriterNickname,
+          commentEntity);
 
       String writerEmail = boardEntity.getWriterEmail();
       messagingTemplate.convertAndSendToUser(writerEmail, "/topic/comment_notification", commentNotificationDto);

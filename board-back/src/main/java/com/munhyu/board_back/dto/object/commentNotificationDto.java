@@ -12,16 +12,18 @@ import lombok.NoArgsConstructor;
 public class commentNotificationDto {
 
   private int boardNumber;
+  private int commentNumber;
   private String boardTitle;
   private String commentContent;
-  private String writerEmail;
+  private String commentWriterNickname;
 
-  public commentNotificationDto(String boardTitle, CommentEntity commentEntity) {
+  public commentNotificationDto(String boardTitle, String commentWriterNickname, CommentEntity commentEntity) {
     final int MAX_TITLE_LENGTH = 10;
     final int MAX_CONTENT_LENGTH = 20;
 
     this.boardNumber = commentEntity.getBoardNumber();
-    this.writerEmail = commentEntity.getUserEmail();
+    this.commentNumber = commentEntity.getCommentNumber();
+    this.commentWriterNickname = commentWriterNickname;
 
     if (boardTitle != null && boardTitle.length() > MAX_TITLE_LENGTH) {
       this.boardTitle = boardTitle.substring(0, MAX_TITLE_LENGTH) + "...";
