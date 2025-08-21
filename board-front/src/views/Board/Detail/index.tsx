@@ -416,8 +416,8 @@ export default function BoardDetail() {
                 <span className="emphasis">{favoriteList.length}</span>
               </div>
               <div className="board-detail-bottom-favorite-contents">
-                {favoriteList.map((item) => (
-                  <FavoriteItem favoriteListItem={item} />
+                {favoriteList.map((item, index) => (
+                  <FavoriteItem key={index} favoriteListItem={item} />
                 ))}
               </div>
             </div>
@@ -431,8 +431,8 @@ export default function BoardDetail() {
                 <span className="emphasis">{totalCommentCount}</span>
               </div>
               <div className="board-detail-bottom-comment-list-container">
-                {viewList.map((item) => (
-                  <CommentItem commentListItem={item} />
+                {viewList.map((item, index) => (
+                  <CommentItem key={index} commentListItem={item} />
                 ))}
               </div>
             </div>
