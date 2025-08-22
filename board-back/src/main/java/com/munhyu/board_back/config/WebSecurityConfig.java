@@ -19,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.munhyu.board_back.OAuth2.CustomOAuth2UserService;
+import com.munhyu.board_back.OAuth2.OAuth2SuccessHandler;
 import com.munhyu.board_back.filter.JwtAuthenticationFilter;
 
 import jakarta.servlet.ServletException;
@@ -33,6 +35,9 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
 
   private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  // OAuth2 관련 서비스
+  private final CustomOAuth2UserService customOAuth2UserService;
+  private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
   @Bean
   protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
@@ -44,13 +49,17 @@ public class WebSecurityConfig {
         .sessionManagement(sessionManagement -> sessionManagement
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(request -> request
-            .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**", "/hyustree/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*", "/hyustree/**").permitAll()
-            // .requestMatchers("/api/v1/user/**").hasRole("USER") 나중에 추가
-            // .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+            .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**", "/hyustree/**", "/oauth2/**")
+            .permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*", "/hyustree/**")
+            .permitAll()
             .anyRequest().authenticated())
         .exceptionHandling(exceptionHandling -> exceptionHandling
             .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
+        // config: OAuth2 로그인 설정
+        .oauth2Login(oauth2 -> oauth2
+            .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+            .successHandler(oAuth2SuccessHandler))
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return httpSecurity.build();
