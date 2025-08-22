@@ -1,5 +1,6 @@
 export const MAIN_PATH = () => "/";
 export const AUTH_PATH = () => "/auth";
+export const REDIRECT_PATH = () => "/oauth2/redirect";
 export const SEARCH_PATH = (searchWord: string) => `/search/${searchWord}`;
 export const USER_PATH = (userEmail: string) => `/user/${userEmail}`;
 

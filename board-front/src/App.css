@@ -52,6 +52,29 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.white-large-full-button {
+  border-radius: 46px;
+  width: calc(100% - 2px);
+  height: 46px;
+  gap: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+
+  cursor: pointer;
+}
+.white-large-full-button:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
 .disable-button {
   width: 95px;
   height: 30px;
@@ -260,4 +283,8 @@
 
 .document-icon {
   background-image: url("assets/image/document.png");
+}
+
+.google-icon {
+  background-image: url("assets/image/google.png");
 }

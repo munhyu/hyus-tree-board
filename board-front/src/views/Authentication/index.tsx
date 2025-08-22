@@ -195,6 +195,11 @@ export default function Authentication() {
       if (event.key !== "Enter") return;
       onSignInButtonClickHandler();
     };
+    //          event handler: 구글 로그인 버튼 클릭 이벤트 처리          //
+    const onGoogleSignInButtonClickHandler = () => {
+      window.location.href =
+        "http://localhost:4000/oauth2/authorization/google";
+    };
 
     //          render: sign in card 컴포넌트 렌더링          //
     return (
@@ -242,6 +247,19 @@ export default function Authentication() {
               onClick={onSignInButtonClickHandler}
             >
               {"로그인"}
+            </div>
+            {/* 구글 로그인*/}
+            <div className="auth-divider">
+              <span>또는</span>
+            </div>
+            <div
+              className="white-large-full-button google-sign-in-button"
+              onClick={onGoogleSignInButtonClickHandler}
+            >
+              <div className="icon-box">
+                <div className="google-icon icon"></div>
+              </div>
+              <span>Google로 로그인</span>
             </div>
             <div className="auth-description-box">
               <div className="auth-description">
