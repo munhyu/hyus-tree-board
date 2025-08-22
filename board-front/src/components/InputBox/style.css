@@ -48,16 +48,3 @@
   line-height: 140%;
   color: rgba(255, 0, 0, 0.7);
 }
-
-/* <div className="inputbox">
-      <div className="inputbox-label">{"비밀번호*"}</div>
-      <div className="inputbox-container">
-        <input className="input" type="text" />
-        <div className="icon-button">
-          <div className="icon eye-light-off-icon"></div>
-        </div>
-      </div>
-      <div className="inputbox-message">
-        {"비밀번호는 8자 이상 입력해주세요."}
-      </div>
-    </div> */

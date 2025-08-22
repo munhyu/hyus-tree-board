@@ -11,7 +11,6 @@ import com.munhyu.board_back.dto.response.search.GetRelationListResponseDto;
 import com.munhyu.board_back.service.SearchService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/search")

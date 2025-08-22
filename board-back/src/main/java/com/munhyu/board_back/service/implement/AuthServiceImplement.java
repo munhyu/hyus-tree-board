@@ -21,12 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService {
 
-  // @Autowired
-  // public AuthServiceImplement(UserRepository userRepository) {
-  // this.userRepository = userRepository;
-  // }
-
-  // RequiredArgsConstructor과 final 이용하면 위와 동일한 효과
   private final UserRepository userRepository;
   private final JwtProvider jwtProvider;
 

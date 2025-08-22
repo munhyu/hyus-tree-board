@@ -22,9 +22,7 @@ public class UserEntity {
   private String nickname;
   private String profileImage;
   private boolean agreedPersonal;
-  // field: OAuth2 제공자 (google, kakao 등) //
   private String provider;
-  // field: OAuth2 제공자에서의 고유 ID //
   private String providerId;
 
   public UserEntity(SignUpRequestDto dto) {

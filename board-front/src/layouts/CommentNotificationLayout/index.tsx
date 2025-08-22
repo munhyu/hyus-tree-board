@@ -54,7 +54,7 @@ export default function CommentNotificationLayout() {
 
       // 배포시에는 디버그 비활성화
       debug: (str: string) => {
-        console.log("STOMP DEBUG: " + str);
+        // console.log("STOMP DEBUG: " + str);
       },
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,

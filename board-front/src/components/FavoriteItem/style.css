@@ -23,13 +23,3 @@
   line-height: 140%;
   color: rgba(0, 0, 0, 0.7);
 }
-
-/* <div className="favorite-list-item">
-      <div className="favorite-list-item-profile-box">
-        <div
-          className="favorite-list-item-profile-image"
-          style={{ backgroundImage: `url()` }}
-        ></div>
-        <div className="favorite-list-item-nickname">{"nickname"}</div>
-      </div>
-    </div> */

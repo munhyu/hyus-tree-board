@@ -45,28 +45,9 @@
   line-height: 140%;
 }
 
-/* .comment-list-item-main { } */
-
 .comment-list-item-content {
   color: rgba(0, 0, 0, 0.7);
   font-size: 18px;
   font-weight: 500;
   line-height: 150%;
 }
-
-/* <div className="comment-list-item">
-      <div className="comment-list-item-top">
-        <div className="comment-list-item-profile-box">
-          <div
-            className="comment-list-item-profile-image"
-            style={{ backgroundImage: `url()` }}
-          ></div>
-        </div>
-        <div className="comment-list-item-nickname">{"nickname"}</div>
-        <div className="comment-list-item-divider">{"|"}</div>
-        <div className="comment-list-item-time">{"3m"}</div>
-      </div>
-      <div className="comment-list-item-main">
-        <div className="comment-list-item-content">{"댓글 내용"}</div>
-      </div>
-    </div> */
