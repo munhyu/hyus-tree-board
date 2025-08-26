@@ -2,7 +2,6 @@ package com.munhyu.board_back.config;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,7 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-@Configurable
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
