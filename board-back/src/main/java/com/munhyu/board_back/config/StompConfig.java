@@ -23,7 +23,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
   @Override
   public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-    registry.addEndpoint("/hyustree").setAllowedOriginPatterns(allowedOrigins).withSockJS();
+    registry.addEndpoint("/hyustree").setAllowedOriginPatterns(allowedOrigins, "http://localhost:3000").withSockJS();
   }
 
 }

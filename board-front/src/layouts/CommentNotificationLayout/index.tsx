@@ -64,8 +64,6 @@ export default function CommentNotificationLayout() {
 
     // 연결 성공 시 실행
     client.onConnect = (frame) => {
-      console.log("STOMP Connected:", frame);
-
       // 로그인 유저의 이메일로 된 알림 토픽 구독
       client.subscribe(
         `/user/${loginUser.email}/topic/comment_notification`,
