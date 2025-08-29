@@ -1,5 +1,5 @@
 import { BoardListItem } from "types/interface";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 
 export default interface GetUserBoardListResponseDto extends ResponseDto {
   userBoardList: BoardListItem[];

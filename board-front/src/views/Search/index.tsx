@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import BoardItem from "components/BoardItem";
 import { useSearchBoardPagination } from "hooks";
 import { SEARCH_PATH } from "constant";

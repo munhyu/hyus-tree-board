@@ -1,5 +1,5 @@
 import { getBoardLatestListRequest } from "apis";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import { GetBoardLatestListResponseDto } from "apis/response/board";
 import { useEffect, useState } from "react";
 import { BoardListItem } from "types/interface";

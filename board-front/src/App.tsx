@@ -25,7 +25,7 @@ import { useCookies } from "react-cookie";
 import { useLoginUserStore } from "stores";
 import { getSignInUserRequest } from "apis";
 import { GetSignInUserResponseDto } from "apis/response/user";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import { User } from "types/interface";
 
 //                  components: Application 컴포넌트              //

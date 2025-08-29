@@ -6,7 +6,7 @@ import { MAIN_PATH } from "constant";
 import { useCookies } from "react-cookie";
 import { getBoardRequest } from "apis";
 import { GetBoardResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import { convertUrlsToFile } from "utils";
 
 //               component: 게시물 수정 화면 컴포넌트          //

@@ -9,7 +9,7 @@ import { useLoginUserStore } from "stores";
 import { deleteCommentRequest } from "apis";
 import { Cookies, useCookies } from "react-cookie";
 import { DeleteCommentResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 
 interface Props {
   commentListItem: CommentListItem;

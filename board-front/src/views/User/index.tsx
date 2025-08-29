@@ -25,7 +25,7 @@ import {
   PatchNicknameResponseDto,
   PatchProfileImageResponseDto,
 } from "apis/response/user";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import {
   PatchNicknameRequestDto,
   PatchProfileImageRequestDto,

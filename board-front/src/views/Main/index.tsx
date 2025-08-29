@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { SEARCH_PATH } from "constant";
 import { getBoardTop3ListRequest, getPopularListRequest } from "apis";
 import { GetBoardTop3ListResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import { GetPopularListResponseDto } from "apis/response/search";
 
 //               component: 메인 화면 컴포넌트          //

@@ -4,7 +4,7 @@ import InputBox from "components/InputBox";
 import { SignInRequestDto, SignUpRequestDto } from "apis/request/auth";
 import { signInRequest, signUpRequest } from "apis";
 import { SignInResponseDto, SignUpResponseDto } from "apis/response/auth";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import { useCookies } from "react-cookie";
 import { MAIN_PATH } from "constant";
 import { useNavigate } from "react-router-dom";

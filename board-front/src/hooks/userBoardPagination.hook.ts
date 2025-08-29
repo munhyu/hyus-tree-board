@@ -1,5 +1,5 @@
 import { getBoardLatestListRequest, getUserBoardListRequest } from "apis";
-import { ResponseDto } from "apis/response";
+import ResponseDto from "apis/response/response.dto";
 import {
   GetBoardLatestListResponseDto,
   GetUserBoardListResponseDto,
