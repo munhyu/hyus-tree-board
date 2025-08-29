@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/domain/:path*",
+      "destination": "@domain_base_url/:path*"
+    }
+  ]
+}
