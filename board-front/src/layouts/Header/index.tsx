@@ -16,16 +16,23 @@ import {
   MAIN_PATH,
   SEARCH_PATH,
   USER_PATH,
-} from "constant";
+} from "../../constant";
 import { useCookies } from "react-cookie";
-import { useBoardStore, useLoginUserStore } from "stores";
-import { fileUploadRequest, patchBoardRequest, postBoardRequest } from "apis";
-import { PatchBoardRequestDto, PostBoardRequestDto } from "apis/request/board";
-import ResponseDto from "apis/response/response.dto";
+import { useBoardStore, useLoginUserStore } from "../../stores";
+import {
+  fileUploadRequest,
+  patchBoardRequest,
+  postBoardRequest,
+} from "../../apis";
+import {
+  PatchBoardRequestDto,
+  PostBoardRequestDto,
+} from "../../apis/request/board";
+import ResponseDto from "../../apis/response/response.dto";
 import {
   PatchBoardResponseDto,
   PostBoardResponseDto,
-} from "apis/response/board";
+} from "../../apis/response/board";
 
 //                      component: 헤더 레이아웃              //
 export default function Header() {

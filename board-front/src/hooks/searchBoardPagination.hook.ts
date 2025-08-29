@@ -1,8 +1,8 @@
-import { getBoardSearchListRequest } from "apis";
-import ResponseDto from "apis/response/response.dto";
-import { GetBoardSearchListResponseDto } from "apis/response/board";
+import { getBoardSearchListRequest } from "../apis";
+import ResponseDto from "../apis/response/response.dto";
+import { GetBoardSearchListResponseDto } from "../apis/response/board";
 import { useEffect, useState } from "react";
-import { BoardListItem } from "types/interface";
+import { BoardListItem } from "../types/interface";
 
 const useSearchBoardPagination = (searchWord: string) => {
   //          state: 검색어 상태          //

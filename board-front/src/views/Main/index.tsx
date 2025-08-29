@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import BoardPagination from "components/BoardPagination";
-import { useBoardPagination } from "hooks";
-import BoardItem from "components/BoardItem";
-import Top3Item from "components/Top3Item";
-import { BoardListItem } from "types/interface";
+import BoardPagination from "../../components/BoardPagination";
+import { useBoardPagination } from "../../hooks";
+import BoardItem from "../../components/BoardItem";
+import Top3Item from "../../components/Top3Item";
+import { BoardListItem } from "../../types/interface";
 import { useNavigate } from "react-router-dom";
-import { SEARCH_PATH } from "constant";
-import { getBoardTop3ListRequest, getPopularListRequest } from "apis";
-import { GetBoardTop3ListResponseDto } from "apis/response/board";
-import ResponseDto from "apis/response/response.dto";
-import { GetPopularListResponseDto } from "apis/response/search";
+import { SEARCH_PATH } from "../../constant";
+import { getBoardTop3ListRequest, getPopularListRequest } from "../../apis";
+import { GetBoardTop3ListResponseDto } from "../../apis/response/board";
+import ResponseDto from "../../apis/response/response.dto";
+import { GetPopularListResponseDto } from "../../apis/response/search";
 
 //               component: 메인 화면 컴포넌트          //
 

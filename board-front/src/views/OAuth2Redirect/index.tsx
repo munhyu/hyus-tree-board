@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { AUTH_PATH, MAIN_PATH } from "constant";
+import { AUTH_PATH, MAIN_PATH } from "../../constant";
 import "./style.css";
 
 //          component: OAuth2 리다이렉트 처리 컴포넌트          //

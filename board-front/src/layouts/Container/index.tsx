@@ -1,7 +1,7 @@
-import { AUTH_PATH } from "constant";
-import CommentNotificationLayout from "layouts/CommentNotificationLayout";
-import Footer from "layouts/Footer";
-import Header from "layouts/Header";
+import { AUTH_PATH } from "../../constant";
+import CommentNotificationLayout from "../../layouts/CommentNotificationLayout";
+import Footer from "../../layouts/Footer";
+import Header from "../../layouts/Header";
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 

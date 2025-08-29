@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.css";
-import { useLoginUserStore } from "stores";
-import { useUserBoardPagination } from "hooks";
-import BoardPagination from "components/BoardPagination";
-import BoardItem from "components/BoardItem";
-import defaultProfileImage from "assets/image/default-profile-image.png";
+import { useLoginUserStore } from "../../stores";
+import { useUserBoardPagination } from "../../hooks";
+import BoardPagination from "../../components/BoardPagination";
+import BoardItem from "../../components/BoardItem";
+import defaultProfileImage from "../../assets/image/default-profile-image.png";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   AUTH_PATH,
@@ -12,24 +12,24 @@ import {
   BOARD_WRITE_PATH,
   MAIN_PATH,
   USER_PATH,
-} from "constant";
-import { compressAndResizeImage } from "utils";
+} from "../../constant";
+import { compressAndResizeImage } from "../../utils";
 import {
   fileUploadRequest,
   getUserRequest,
   patchNicknameRequest,
   patchProfileImageRequest,
-} from "apis";
+} from "../../apis";
 import {
   GetUserResponseDto,
   PatchNicknameResponseDto,
   PatchProfileImageResponseDto,
-} from "apis/response/user";
-import ResponseDto from "apis/response/response.dto";
+} from "../../apis/response/user";
+import ResponseDto from "../../apis/response/response.dto";
 import {
   PatchNicknameRequestDto,
   PatchProfileImageRequestDto,
-} from "apis/request/user";
+} from "../../apis/request/user";
 import { useCookies } from "react-cookie";
 
 //               component: 유저 화면 컴포넌트          //

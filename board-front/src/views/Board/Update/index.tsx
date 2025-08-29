@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.css";
-import { useBoardStore, useLoginUserStore } from "stores";
+import { useBoardStore, useLoginUserStore } from "../../../stores";
 import { useNavigate, useParams } from "react-router-dom";
-import { MAIN_PATH } from "constant";
+import { MAIN_PATH } from "../../../constant";
 import { useCookies } from "react-cookie";
-import { getBoardRequest } from "apis";
-import { GetBoardResponseDto } from "apis/response/board";
-import ResponseDto from "apis/response/response.dto";
-import { convertUrlsToFile } from "utils";
+import { getBoardRequest } from "../../../apis";
+import { GetBoardResponseDto } from "../../../apis/response/board";
+import ResponseDto from "../../../apis/response/response.dto";
+import { convertUrlsToFile } from "../../../utils";
 
 //               component: 게시물 수정 화면 컴포넌트          //
 

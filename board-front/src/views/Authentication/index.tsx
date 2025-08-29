@@ -1,12 +1,12 @@
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
 import "./style.css";
-import InputBox from "components/InputBox";
-import { SignInRequestDto, SignUpRequestDto } from "apis/request/auth";
-import { signInRequest, signUpRequest } from "apis";
-import { SignInResponseDto, SignUpResponseDto } from "apis/response/auth";
-import ResponseDto from "apis/response/response.dto";
+import InputBox from "../../components/InputBox";
+import { SignInRequestDto, SignUpRequestDto } from "../../apis/request/auth";
+import { signInRequest, signUpRequest } from "../../apis";
+import { SignInResponseDto, SignUpResponseDto } from "../../apis/response/auth";
+import ResponseDto from "../../apis/response/response.dto";
 import { useCookies } from "react-cookie";
-import { MAIN_PATH } from "constant";
+import { MAIN_PATH } from "../../constant";
 import { useNavigate } from "react-router-dom";
 
 //          component: 인증 화면 컴포넌트          //

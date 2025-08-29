@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
-import { useLoginUserStore } from "stores";
-import type { CommentNotification } from "types/interface";
+import { useLoginUserStore } from "../../stores";
+import type { CommentNotification } from "../../types/interface";
 import { useNavigate } from "react-router-dom";
-import { BOARD_DETAIL_PATH, BOARD_PATH } from "constant";
+import { BOARD_DETAIL_PATH, BOARD_PATH } from "../../constant";
 
 //          component: 코멘트 알림 컴포넌트          //
 

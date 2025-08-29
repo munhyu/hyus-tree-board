@@ -1,4 +1,4 @@
-import { patchBoardRequest } from "apis";
+import { patchBoardRequest } from "../..";
 
 export default interface PatchBoardRequestDto {
   title: string;

@@ -1,4 +1,4 @@
-import { BoardListItem } from "types/interface";
+import { BoardListItem } from "../types/interface";
 
 //  5개 정도
 const top3BoardListMock: BoardListItem[] = [

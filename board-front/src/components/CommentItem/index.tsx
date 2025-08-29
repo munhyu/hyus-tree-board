@@ -1,15 +1,15 @@
 import React from "react";
 import "./style.css";
-import { CommentListItem } from "types/interface";
+import { CommentListItem } from "../../types/interface";
 
-import defaultProfileImage from "assets/image/default-profile-image.png";
+import defaultProfileImage from "../../assets/image/default-profile-image.png";
 
 import dayjs from "dayjs";
-import { useLoginUserStore } from "stores";
-import { deleteCommentRequest } from "apis";
+import { useLoginUserStore } from "../../stores";
+import { deleteCommentRequest } from "../../apis";
 import { Cookies, useCookies } from "react-cookie";
-import { DeleteCommentResponseDto } from "apis/response/board";
-import ResponseDto from "apis/response/response.dto";
+import { DeleteCommentResponseDto } from "../../apis/response/board";
+import ResponseDto from "../../apis/response/response.dto";
 
 interface Props {
   commentListItem: CommentListItem;

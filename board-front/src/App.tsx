@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import OAuth2Redirect from "views/OAuth2Redirect";
-import Main from "views/Main";
-import Authentication from "views/Authentication";
-import Search from "views/Search";
-import BoardDetail from "views/Board/Detail";
-import BoardUpdate from "views/Board/Update";
-import BoardWrite from "views/Board/Write";
-import UserView from "views/User";
-import Container from "layouts/Container";
+import OAuth2Redirect from "./views/OAuth2Redirect";
+import Main from "./views/Main";
+import Authentication from "./views/Authentication";
+import Search from "./views/Search";
+import BoardDetail from "./views/Board/Detail";
+import BoardUpdate from "./views/Board/Update";
+import BoardWrite from "./views/Board/Write";
+import UserView from "./views/User";
+import Container from "./layouts/Container";
 import {
   MAIN_PATH,
   AUTH_PATH,
@@ -20,13 +20,13 @@ import {
   BOARD_DETAIL_PATH,
   BOARD_UPDATE_PATH,
   REDIRECT_PATH,
-} from "constant";
+} from "./constant";
 import { useCookies } from "react-cookie";
-import { useLoginUserStore } from "stores";
-import { getSignInUserRequest } from "apis";
-import { GetSignInUserResponseDto } from "apis/response/user";
-import ResponseDto from "apis/response/response.dto";
-import { User } from "types/interface";
+import { useLoginUserStore } from "./stores";
+import { getSignInUserRequest } from "./apis";
+import { GetSignInUserResponseDto } from "./apis/response/user";
+import ResponseDto from "./apis/response/response.dto";
+import { User } from "./types/interface";
 
 //                  components: Application 컴포넌트              //
 function App() {

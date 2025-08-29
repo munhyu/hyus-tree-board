@@ -1,14 +1,23 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.css";
-import FavoriteItem from "components/FavoriteItem";
-import { Board, CommentListItem, FavoriteListItem } from "types/interface";
-import CommentItem from "components/CommentItem";
-import Pagination from "components/Pagination";
+import FavoriteItem from "../../../components/FavoriteItem";
+import {
+  Board,
+  CommentListItem,
+  FavoriteListItem,
+} from "../../../types/interface";
+import CommentItem from "../../../components/CommentItem";
+import Pagination from "../../../components/Pagination";
 
-import defaultProfileImage from "assets/image/default-profile-image.png";
-import { useLoginUserStore } from "stores";
+import defaultProfileImage from "../../../assets/image/default-profile-image.png";
+import { useLoginUserStore } from "../../../stores";
 import { useNavigate, useParams } from "react-router-dom";
-import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from "constant";
+import {
+  BOARD_PATH,
+  BOARD_UPDATE_PATH,
+  MAIN_PATH,
+  USER_PATH,
+} from "../../../constant";
 import {
   deleteBoardRequest,
   getBoardRequest,
@@ -17,7 +26,7 @@ import {
   increaseViewCountRequest,
   postCommentRequest,
   putFavoriteRequest,
-} from "apis";
+} from "../../../apis";
 import {
   DeleteBoardResponseDto,
   GetBoardResponseDto,
@@ -26,13 +35,13 @@ import {
   IncreaseViewCountResponseDto,
   PostCommentResponseDto,
   PutFavoriteResponseDto,
-} from "apis/response/board";
-import ResponseDto from "apis/response/response.dto";
+} from "../../../apis/response/board";
+import ResponseDto from "../../../apis/response/response.dto";
 
 import dayjs from "dayjs";
 import { useCookies } from "react-cookie";
-import { PostCommentRequestDto } from "apis/request/board";
-import { usePagination } from "hooks";
+import { PostCommentRequestDto } from "../../../apis/request/board";
+import { usePagination } from "../../../hooks";
 
 //               component: 게시물 상세 화면 컴포넌트          //
 export default function BoardDetail() {

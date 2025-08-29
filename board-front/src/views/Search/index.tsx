@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate, useParams } from "react-router-dom";
-import ResponseDto from "apis/response/response.dto";
-import BoardItem from "components/BoardItem";
-import { useSearchBoardPagination } from "hooks";
-import { SEARCH_PATH } from "constant";
-import BoardPagination from "components/BoardPagination";
-import { GetRelationListResponseDto } from "apis/response/search";
-import { getRelationListRequest } from "apis";
+import ResponseDto from "../../apis/response/response.dto";
+import BoardItem from "../../components/BoardItem";
+import { useSearchBoardPagination } from "../../hooks";
+import { SEARCH_PATH } from "../../constant";
+import BoardPagination from "../../components/BoardPagination";
+import { GetRelationListResponseDto } from "../../apis/response/search";
+import { getRelationListRequest } from "../../apis";
 
 //               component: 검색 화면 컴포넌트          //
 

@@ -1,12 +1,12 @@
-import { getBoardLatestListRequest, getUserBoardListRequest } from "apis";
-import ResponseDto from "apis/response/response.dto";
+import { getBoardLatestListRequest, getUserBoardListRequest } from "../apis";
+import ResponseDto from "../apis/response/response.dto";
 import {
   GetBoardLatestListResponseDto,
   GetUserBoardListResponseDto,
-} from "apis/response/board";
+} from "../apis/response/board";
 import { useEffect, useState } from "react";
-import { useLoginUserStore } from "stores";
-import { BoardListItem } from "types/interface";
+import { useLoginUserStore } from "../stores";
+import { BoardListItem } from "../types/interface";
 
 const useUserBoardPagination = (userEmail: string | undefined) => {
   //          state: 유저 상태          //

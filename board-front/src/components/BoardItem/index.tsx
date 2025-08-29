@@ -2,11 +2,11 @@ import React from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
 
-import type { BoardListItem } from "types/interface";
+import type { BoardListItem } from "../../types/interface";
 
-import defaultProfileImage from "assets/image/default-profile-image.png";
-import defaultBoardTitleImage from "assets/image/document.png";
-import { BOARD_DETAIL_PATH, BOARD_PATH } from "constant";
+import defaultProfileImage from "../../assets/image/default-profile-image.png";
+import defaultBoardTitleImage from "../../assets/image/document.png";
+import { BOARD_DETAIL_PATH, BOARD_PATH } from "../../constant";
 
 interface Props {
   boardListItem: BoardListItem;
