@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { SignInRequestDto, SignUpRequestDto } from "./request/auth";
 import { SignInResponseDto, SignUpResponseDto } from "./response/auth";
-import ResponseDto from "./response/response.dto";
+import ResponseDto from "apis/response/response.dto";
+
 import {
   GetSignInUserResponseDto,
   GetUserResponseDto,
