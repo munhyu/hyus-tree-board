@@ -2,6 +2,7 @@ package com.munhyu.board_back.config;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,6 +37,8 @@ public class WebSecurityConfig {
   // OAuth2 관련 서비스
   private final CustomOAuth2UserService customOAuth2UserService;
   private final OAuth2SuccessHandler oAuth2SuccessHandler;
+  @Value("${cors.allowed-origins}")
+  private String allowedOrigins;
 
   @Bean
   protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
@@ -67,7 +70,7 @@ public class WebSecurityConfig {
   protected CorsConfigurationSource corsConfigurationSource() {
 
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOrigin("http://localhost:3000");
+    corsConfiguration.addAllowedOrigin(allowedOrigins);
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.setAllowCredentials(true);

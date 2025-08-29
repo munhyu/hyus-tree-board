@@ -2,6 +2,7 @@ package com.munhyu.board_back.OAuth2;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -22,6 +23,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
   private final JwtProvider jwtProvider;
   private final UserRepository userRepository;
+  @Value("${cors.allowed-origins}")
+  private String allowedOrigins;
 
   @Override
   public void onAuthenticationSuccess(
@@ -37,7 +40,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     UserEntity userEntity = userRepository.findByEmail(email);
 
     if (userEntity == null) {
-      response.sendRedirect("http://localhost:3000/oauth2?error=user_not_found");
+      response.sendRedirect(allowedOrigins + "/oauth2?error=user_not_found");
       return;
     }
 
@@ -45,7 +48,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     String token = jwtProvider.create(email);
 
     // 프론트엔드로 토큰과 함께 리다이렉트
-    String redirectUrl = String.format("http://localhost:3000/oauth2/redirect?token=%s&expirationTime=18000", token);
+    String redirectUrl = String.format("%s/oauth2/redirect?token=%s&expirationTime=18000", allowedOrigins, token);
     response.sendRedirect(redirectUrl);
   }
 }
