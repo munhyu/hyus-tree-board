@@ -197,8 +197,8 @@ export default function Authentication() {
     };
     //          event handler: 구글 로그인 버튼 클릭 이벤트 처리          //
     const onGoogleSignInButtonClickHandler = () => {
-      window.location.href =
-        "http://localhost:4000/oauth2/authorization/google";
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;
+      window.location.href = `${apiUrl}/oauth2/authorization/google`;
     };
 
     //          render: sign in card 컴포넌트 렌더링          //

@@ -49,8 +49,9 @@ export default function CommentNotificationLayout() {
     }
 
     // 로그인 한 상태면 토픽 구독
+    const DOMAIN = process.env.REACT_APP_API_BASE_URL;
     const client = new Client({
-      webSocketFactory: () => new SockJS("http://localhost:4000/hyustree"),
+      webSocketFactory: () => new SockJS(`${DOMAIN}/hyustree`),
 
       // 배포시에는 디버그 비활성화
       debug: (str: string) => {
