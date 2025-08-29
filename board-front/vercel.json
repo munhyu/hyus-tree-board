@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/domain/:path*",
-      "destination": "@domain_base_url/:path*"
+      "source": "/backApi/:path*",
+      "destination": "@api_base_url/:path*"
     }
   ]
 }

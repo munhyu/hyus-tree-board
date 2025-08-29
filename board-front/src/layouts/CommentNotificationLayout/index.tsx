@@ -49,7 +49,7 @@ export default function CommentNotificationLayout() {
     }
 
     // 로그인 한 상태면 토픽 구독
-    const DOMAIN = process.env.REACT_APP_API_BASE_URL || "/domain";
+    const DOMAIN = process.env.REACT_APP_API_BASE_URL || "/backApi";
     const client = new Client({
       webSocketFactory: () => new SockJS(`${DOMAIN}/hyustree`),
 
