@@ -61,7 +61,7 @@ export default function Top3Item({ top3ListItem }: Props) {
           <div className="top-3-list-item-content">{content}</div>
         </div>
         <div className="top-3-list-item-bottom">
-          <div className="top-3-list-item-counts">{`댓글 ${commentCount} • 좋아요 ${favoriteCount} • 조회수 ${viewCount}`}</div>
+          <div className="top-3-list-item-counts">{`댓글 ${commentCount} • 좋아요 ${favoriteCount}`}</div>
         </div>
       </div>
     </div>

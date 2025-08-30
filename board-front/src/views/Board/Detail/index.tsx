@@ -494,7 +494,7 @@ export default function BoardDetail() {
       return;
     }
 
-    increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+    // increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
   }, [boardNumber]);
 
   //               render: 게시물 상세 화면 컴포넌트 렌더링          //
