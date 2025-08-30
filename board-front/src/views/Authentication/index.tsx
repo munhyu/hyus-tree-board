@@ -195,9 +195,9 @@ export default function Authentication() {
       if (event.key !== "Enter") return;
       onSignInButtonClickHandler();
     };
-    //          event handler: 구글 로그인 버튼 클릭 이벤트 처리          //
+    //          event handler: 구글 로그인 버튼 클릭 이벤트 처리       //
     const onGoogleSignInButtonClickHandler = () => {
-      const apiUrl = process.env.REACT_APP_API_BASE_URL || "/backApi";
+      const apiUrl = process.env.REACT_APP_API_BASE_URL;
       window.location.href = `${apiUrl}/oauth2/authorization/google`;
     };
 

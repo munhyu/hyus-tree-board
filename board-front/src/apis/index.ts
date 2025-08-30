@@ -38,7 +38,7 @@ import {
   PatchProfileImageRequestDto,
 } from "./request/user";
 
-const DOMAIN = process.env.REACT_APP_API_BASE_URL || "/backApi";
+const DOMAIN = process.env.REACT_APP_API_BASE_URL;
 // const DOMAIN = "http://localhost:4000";
 
 const API_DOMAIN = `${DOMAIN}/api/v1`;
