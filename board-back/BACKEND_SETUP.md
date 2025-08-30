@@ -16,7 +16,7 @@ secret-key=YOUR_DEPLOY_SECRET_KEY
 ## 데이터베이스 설정
 
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/[데이터베이스명]?serverTimezone=UTC&characterEncoding=UTF-8
+spring.datasource.url=jdbc:mysql://[RDS엔드포인트]/[데이터베이스명]?serverTimezone=UTC&characterEncoding=UTF-8
 spring.datasource.username=[유저명]
 spring.datasource.password=[패스워드]
 
