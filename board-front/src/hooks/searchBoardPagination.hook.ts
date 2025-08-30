@@ -34,9 +34,9 @@ const useSearchBoardPagination = (searchWord: string) => {
 
     const { searchList, totalPages } =
       responseBody as GetBoardSearchListResponseDto;
-    console.log("word", word);
-    console.log("currentPage", currentPage);
-    console.log("prevWord", prevWord);
+    // console.log("word", word);
+    // console.log("currentPage", currentPage);
+    // console.log("prevWord", prevWord);
     setBoardList(searchList);
     setSearchCount(searchList.length);
     setTotalPages(totalPages);

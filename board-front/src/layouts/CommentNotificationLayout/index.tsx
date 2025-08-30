@@ -72,7 +72,7 @@ export default function CommentNotificationLayout() {
             const notificationData: CommentNotification = JSON.parse(
               message.body
             );
-            console.log("알림 수신:", notificationData);
+            // console.log("알림 수신:", notificationData);
             // 3개까지만 알림을 유지
             setNotifications((prev) => {
               const updated = [...prev, notificationData];
