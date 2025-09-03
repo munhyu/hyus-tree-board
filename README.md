@@ -68,8 +68,8 @@ React와 Spring Boot를 활용한 풀스택 웹 애플리케이션 개발 연습
 
 
 ## 🌎 배포 환경
-* Frontend: Vercel
-* Backend: AWS EC2 (Spring Boot) + AWS RDS(MySQL)
+* Frontend: Vercel(React)
+* Backend: AWS EC2(Spring Boot) + AWS RDS(MySQL)
 * 도메인 관리: AWS Route53 + 가비아
 <br />
 <br />
@@ -91,7 +91,7 @@ React와 Spring Boot를 활용한 풀스택 웹 애플리케이션 개발 연습
  ### 3.  로드 밸런서 상태 검사 오류
 * **원인**
    * net::ERR_CONNECTION_CLOSED 오류가 발생
-   * 로드 밸런서가 401 (Unauthorized) 에러를 반환하는 엔드포인트에 헬스 체크를 시도하여 대상 인스턴스가 비정상 상태로 판단되어 오류 발생
+   * 로드 밸런서가 401 (Unauthorized) 에러를 반환하는 인증이 필요한 엔드포인트에 헬스 체크를 시도하여 대상 인스턴스가 비정상 상태로 판단되어 오류 발생
 * **해결 방법:**
   1. 로드 밸런서의 상태 검사 경로를 로그인 없이 접근 가능한 엔드포인트로 변경하여 해결
 <br />
