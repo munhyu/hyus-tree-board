@@ -24,7 +24,7 @@ React와 Spring Boot를 활용한 풀스택 웹 애플리케이션 개발 연습
     * pagination 구현
         * 댓글은 프론트엔드 페이지네이션을 적용
         * 게시물은 Pageable 인터페이스를 사용해 백엔드 페이지네이션을 적용
-    * vercel과 AWS를 이용하여 배포
+    * AWS와 Vercel를 이용하여 배포
 <br />
 <br />
 
